@@ -1,0 +1,32 @@
+# Use postgres/example user/password credentials
+version: '3.7'
+
+services:
+  dba:
+    image: postgres:14.3-alpine
+    container_name: database
+    restart: always
+    environment:
+      TZ: ${DATABASE_PGTZ}
+      PGTZ: ${DATABASE_PGTZ}
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASS}
+    volumes:
+     - /var/lib/postgresql/data
+    ports:
+     - ${DATABASE_PORT}:${DATABASE_PORT}    
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgAdmin
+    restart: always
+    environment:
+       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL} 
+       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+       PGADMIN_DEFAULT_PORT: ${PGADMIN_DEFAULT_PORT}
+    ports:
+      - 8080:${PGADMIN_DEFAULT_PORT}
+    volumes:
+      - /var/lib/pgadmin 
+    depends_on:
+      - dba     

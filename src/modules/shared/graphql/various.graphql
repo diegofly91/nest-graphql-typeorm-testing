@@ -1,0 +1,35 @@
+enum STATUS {
+   ACTIVE
+   INACTIVE
+   PREACTIVE
+   DELETED
+}
+""" Input de paginacion  """
+input Pagination {
+  limit: Int
+  offset: Int
+}
+
+""" Input Options """
+input Options {
+   isActive: Boolean
+   deleted: Boolean
+   status: STATUS
+}
+
+""" Input para  """
+input WithAssocOptions {
+       #### creates: array the Id the entity
+       creates: [JokerById]
+       #### deletes:  array the Id the entity 
+       deletes: [JokerById]
+}
+
+""" Input by Id """
+input JokerById {
+   id: Int!
+}
+
+scalar Date
+scalar Image
+scalar VideoFile
