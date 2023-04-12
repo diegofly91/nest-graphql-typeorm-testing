@@ -1,4 +1,10 @@
 {
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "tabWidth": 4,
+  "semi": true,
+  "printWidth": 120,
+  "prettier/prettier": [
+    "error", {"singleQuote": true, "parser": "flow"}
+  ]
 }

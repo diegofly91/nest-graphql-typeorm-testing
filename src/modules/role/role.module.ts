@@ -7,18 +7,18 @@ import { RoleService } from './services';
 import { Role } from './entities';
 
 @Module({
-  imports: [
-    //forwardRef(() => AuthModule),
-    TypeOrmModule.forFeature([Role]),
-  ],
-  providers: [
-    RoleService,
-    RoleResolver,
-    {
-      provide: 'RoleRepositoryInterface',
-      useClass: RoleRepository,
-    },
-  ],
-  exports: [RoleService],
+    imports: [
+        //forwardRef(() => AuthModule),
+        TypeOrmModule.forFeature([Role]),
+    ],
+    providers: [
+        RoleService,
+        RoleResolver,
+        {
+            provide: 'RoleRepositoryInterface',
+            useClass: RoleRepository,
+        },
+    ],
+    exports: [RoleService],
 })
 export class RoleModule {}

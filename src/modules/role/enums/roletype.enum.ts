@@ -1,6 +1,6 @@
 export enum RoleType {
-  SUPERUSER = 'SUPERUSER',
-  ADMIN = 'ADMIN',
-  ADVISER = 'ADVISER',
-  CUSTOMER = 'CUSTOMER',
+    SUPERUSER = 'SUPERUSER',
+    ADMIN = 'ADMIN',
+    ADVISER = 'ADVISER',
+    CUSTOMER = 'CUSTOMER',
 }
