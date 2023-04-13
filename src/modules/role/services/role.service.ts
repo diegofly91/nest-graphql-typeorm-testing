@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { CreateRoleDto, FindByNameRoleDto, UpdateRoleDto } from '../dtos';
+import { CreateRoleDto, UpdateRoleDto } from '../dtos';
 import { Role } from '../entities';
 import { RoleRepository } from '../repositories/index';
 
@@ -20,10 +20,6 @@ export class RoleService {
 
     async getRoleById(roleId: number): Promise<Role> {
         return await this.roleRepository.getRoleById(roleId);
-    }
-
-    async findOneByName(dto: FindByNameRoleDto): Promise<Role> {
-        return await this.roleRepository.findOneByName(dto);
     }
 
     async createRole(dto: CreateRoleDto): Promise<Role> {

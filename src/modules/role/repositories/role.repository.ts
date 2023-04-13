@@ -1,9 +1,8 @@
-import { CreateRoleDto, FindByNameRoleDto, UpdateRoleDto } from '../dtos';
+import { CreateRoleDto, UpdateRoleDto } from '../dtos';
 import { BadRequestException, NotFoundException, Injectable } from '@nestjs/common';
 import { RoleInterfaceRepository } from '../interfaces/index';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Status } from '@/modules/shared/enums';
 import { Role } from '../entities';
 
 @Injectable()
@@ -27,21 +26,7 @@ export class RoleRepository<Role> implements RoleInterfaceRepository<Role> {
         return role;
     }
 
-    async findOneByName({ name }: FindByNameRoleDto): Promise<Role> {
-        const role = await this.roleRepository
-            .createQueryBuilder('role')
-            .where('role.status = :status AND role.name  = :name', {
-                status: Status.ACTIVE,
-                name,
-            })
-            .getOne();
-        if (!role) throw new NotFoundException('The role is not exists');
-        return role;
-    }
-
     async createRole(dto: CreateRoleDto): Promise<Role> {
-        const role = await this.roleExist(dto);
-        if (role) throw new BadRequestException('The role is already registered');
         const { raw } = await this.roleRepository.createQueryBuilder().insert().into(Role).values(dto).execute();
         return raw;
     }
@@ -64,10 +49,5 @@ export class RoleRepository<Role> implements RoleInterfaceRepository<Role> {
         const role = await this.getRoleById(roleId);
         const roleDeleted = await this.roleRepository.remove(role);
         return roleDeleted;
-    }
-
-    async roleExist({ name }: FindByNameRoleDto): Promise<boolean> {
-        const role = await this.roleRepository.createQueryBuilder('role').where('role.name = :name', { name }).getOne();
-        return !!role;
     }
 }
