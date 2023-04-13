@@ -1,10 +1,10 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserRepository /*, ProfileRepository, UserCompanyRepository */ } from './repositories';
-import { UserResolver /* ProfileResolver, UserCompanyResolver*/ } from './resolvers';
-import { UserService /*, ProfileService, UserCompanyService */ } from './services';
+import { UserRepository, ProfileRepository /* UserCompanyRepository */ } from './repositories';
+import { UserResolver, ProfileResolver /* UserCompanyResolver*/ } from './resolvers';
+import { UserService, ProfileService /* , UserCompanyService */ } from './services';
 // import { AuthModule } from '../auth';
-import { User /*, Profile, UserCompany */ } from './entities';
+import { User, UserProfile /*, , UserCompany */ } from './entities';
 // import { CompanyModule } from '../company';
 import { RoleModule } from '../role/role.module';
 
@@ -13,7 +13,7 @@ import { RoleModule } from '../role/role.module';
         // forwardRef(() => AuthModule),
         // forwardRef(() => CompanyModule),
         forwardRef(() => RoleModule),
-        TypeOrmModule.forFeature([User /*, UserCompany, Profile*/]),
+        TypeOrmModule.forFeature([User, UserProfile /*, UserCompany*/]),
     ],
     providers: [
         {
@@ -24,17 +24,17 @@ import { RoleModule } from '../role/role.module';
         //     provide: 'UserCompanyRepositoryInterface',
         //     useClass: UserCompanyRepository,
         // },
-        // {
-        //     provide: 'ProfileRepositoryInterface',
-        //     useClass: ProfileRepository,
-        // },
+        {
+            provide: 'ProfileRepositoryInterface',
+            useClass: ProfileRepository,
+        },
         UserService,
         // UserCompanyService,
-        // ProfileService,
+        ProfileService,
         // UserCompanyResolver,
         UserResolver,
-        // ProfileResolver,
+        ProfileResolver,
     ],
-    exports: [UserService /*, ProfileService, UserCompanyService */],
+    exports: [UserService, ProfileService /*, UserCompanyService */],
 })
 export class UserModule {}

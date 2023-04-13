@@ -7,7 +7,7 @@ type User {
     createdAt: String
     updatedAt: String
     role: Role!
-    ##profile: Profile
+    profile: Profile
     ##company: Company
 }
 
@@ -26,6 +26,6 @@ type Query {
 }
 
 type Mutation {
-    createUser(input: CreateUserDto!): User!
+    createUser(input: CreateUserDto!, inputPro: InputProfileUserDto!): User!
     deleteUser(id: Int!): User!
 }

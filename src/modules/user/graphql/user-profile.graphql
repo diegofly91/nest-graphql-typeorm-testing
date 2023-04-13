@@ -1,0 +1,25 @@
+type Profile {
+    id: Int!
+    userId: Int!
+    firstname: String
+    lastname: String
+    address: String
+    phone: String
+    createdAt: String!
+    updatedAt: String!
+}
+
+input InputProfileUserDto {
+    firstname: String
+    lastname: String
+    address: String
+    phone: String
+}
+
+type Query {
+   getProfileUserById(userId: Int!): Profile
+}
+
+type Mutation {
+  updateProfileUser(input: InputProfileUserDto!): Profile!
+}

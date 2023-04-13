@@ -1,7 +1,7 @@
 import { Status } from '@/modules/shared/enums';
-import { CreateUserDto /*, CreateProfileUserDto */ } from '@/modules/user/dtos';
+import { CreateUserDto, InputProfileUserDto } from '@/modules/user/dtos';
 
-export const usersSeed: { userDto: CreateUserDto }[] = [
+export const usersSeed: { userDto: CreateUserDto; profileDto: InputProfileUserDto }[] = [
     {
         userDto: {
             email: 'diegofernandolibreros@gmail.com',
@@ -9,6 +9,12 @@ export const usersSeed: { userDto: CreateUserDto }[] = [
             roleId: 1,
             password: 'DiegoPassword',
             status: Status.ACTIVE,
+        },
+        profileDto: {
+            firstname: 'Diego',
+            lastname: 'Libreros',
+            phone: '809-555-5555',
+            address: 'Calle 1, Santo Domingo, República Dominicana',
         },
     },
 ];

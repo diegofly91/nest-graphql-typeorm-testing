@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { /*CreateProfileUserDto,*/ CreateUserDto } from '@/modules/user/dtos';
+import { InputProfileUserDto, CreateUserDto } from '@/modules/user/dtos';
 import { RoleService } from '@/modules/role/services';
-import { /*ProfileService,*/ UserService } from '@/modules/user/services';
+import { ProfileService, UserService } from '@/modules/user/services';
 import { rolesSeed, usersSeed } from '../data';
 
 import { CreateRoleDto } from '@/modules/role/dtos';
@@ -10,7 +10,7 @@ import { User } from '@/modules/user/entities';
 @Injectable()
 export class SeederService {
     constructor(
-        //private readonly profileUserService: ProfileService,
+        private readonly profileUserService: ProfileService,
         private readonly userService: UserService,
         private readonly roleService: RoleService,
         private readonly logger: Logger,
@@ -38,23 +38,15 @@ export class SeederService {
 
     async createUsers() {
         await Promise.all(
-            usersSeed.map(
-                async (item: {
-                    userDto: CreateUserDto;
-                    // profileDto: CreateProfileUserDto;
-                }) => {
-                    const { userDto /* profileDto */ } = item;
-                    const exists = await this.userService.getUserByEmail(userDto.email);
-                    if (exists === null) {
-                        const user: User = await this.userService.createUser(userDto);
-                        // await this.profileUserService.createProfileUser(
-                        //   user.id,
-                        //   profileDto,
-                        // );
-                    }
-                    this.logger.debug('Seeder User created: ' + userDto.email);
-                },
-            ),
+            usersSeed.map(async (item: { userDto: CreateUserDto; profileDto: InputProfileUserDto }) => {
+                const { userDto, profileDto } = item;
+                const exists = await this.userService.getUserByEmail(userDto.email);
+                if (exists === null) {
+                    const user: User = await this.userService.createUser(userDto);
+                    await this.profileUserService.createProfileUser(user.id, profileDto);
+                }
+                this.logger.debug('Seeder User created: ' + userDto.email);
+            }),
         );
     }
 }
