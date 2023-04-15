@@ -1,0 +1,8 @@
+schema: 'src/modules/**/graphql/*.graphql'
+documents: 'test/gql/**/**/*.gql'
+generates: 
+  test/gql/queries.ts:
+      plugins:
+         - typescript
+         - typescript-operations
+         - typescript-graphql-request

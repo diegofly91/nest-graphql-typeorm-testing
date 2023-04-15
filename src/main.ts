@@ -25,7 +25,7 @@ if (fs.existsSync(crPath) && fs.existsSync(pkPath)) {
     const logger = new Logger('Bootstrap');
     const host = AppModule.host || '127.0.0.1';
     const port = AppModule.port || 3000;
-    app.setGlobalPrefix('api');
+    app.setGlobalPrefix('graphql');
     app.enableCors();
     app.useGlobalPipes(
         new ValidationPipe({

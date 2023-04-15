@@ -14,7 +14,7 @@ export interface IRole {
      */
     readonly description?: string;
 
-    readonly createdAt?: Date;
+    readonly createdAt?: string;
 
-    readonly updatedAt?: Date;
+    readonly updatedAt?: string;
 }

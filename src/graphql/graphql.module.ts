@@ -10,6 +10,7 @@ export const GraphQL = GraphQLModule.forRootAsync<ApolloDriverConfig>({
         typePaths: ['./**/graphql/*.graphql'],
         debug: configService.get('GRAPHQL_DEGUB') === 'true',
         playground: configService.get('GRAPHQL_DEGUB') === 'true',
+        path: '/graphql',
         subscriptions: {
             'graphql-ws': {
                 path: '/subscriptions',

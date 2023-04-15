@@ -1,0 +1,9 @@
+query getRoleById($id: Int!){
+    getRoleById(id: $id){
+        id
+        name
+        description
+        createdAt
+        updatedAt
+    }
+}

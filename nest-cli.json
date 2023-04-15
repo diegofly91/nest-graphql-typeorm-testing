@@ -3,6 +3,9 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
+    "plugins": ["@nestjs/graphql/plugin"],
+    "assets": ["modules/**/graphql/**/*.graphql"],
+    "watchAssets": true,
     "deleteOutDir": true
   }
 }

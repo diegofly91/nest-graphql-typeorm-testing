@@ -14,10 +14,10 @@ export class Role implements IRole {
     description: string;
 
     @CreateDateColumn({ type: 'timestamp', nullable: true, name: 'created_at' })
-    createdAt: Date;
+    createdAt: string;
 
     @UpdateDateColumn({ type: 'timestamp', nullable: true, name: 'updated_at' })
-    updatedAt: Date;
+    updatedAt: string;
 
     @OneToMany(() => User, (user) => user.role)
     users: User[];

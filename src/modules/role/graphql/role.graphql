@@ -2,26 +2,13 @@ type Role {
     id: Int!
     name: String!
     description: String
-    status: String
-    createdAt: String
-    updatedAt: String
-}
-
-input CreateRoleInput {
-    name: String!
-    description: String!
-    createdAt: String
-    updatedAt: String
-}
-
-input UpdateRoleInput {
-    name: String
-    description: String
-    createdAt: String
-    updatedAt: String
+    createdAt: Date
+    updatedAt: Date
 }
 
 type Query {
     getRoleById(id: Int!): Role!
     getRoles: [Role!]!
 }
+
+scalar Date
