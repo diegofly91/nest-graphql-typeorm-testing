@@ -5,8 +5,8 @@ type Profile {
     lastname: String
     address: String
     phone: String
-    createdAt: String!
-    updatedAt: String!
+    createdAt: Date
+    updatedAt: Date
 }
 
 input InputProfileUserDto {

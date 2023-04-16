@@ -35,8 +35,8 @@ export class UserProfile implements IUserProfile {
     phone: string;
 
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
-    createdAt: Date;
+    createdAt: string;
 
     @UpdateDateColumn({ type: 'timestamp', name: 'updated_at', nullable: true })
-    updatedAt: Date;
+    updatedAt: string;
 }

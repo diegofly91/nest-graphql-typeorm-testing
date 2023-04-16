@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "test:generate-queries": "gqlg --schemaFilePath ./src/modules/role/graphql/role.graphql --destDirPath ./test/gql/role && graphql-codegen --config codegen.yml"
+    "test:e2e:watch": "jest --config ./test/jest-e2e.json --watch",
+    "test:generate-queries": "node test/join-graphql/merge-file.js && gqlg --schemaFilePath ./test/join-graphql/joined.graphql --destDirPath ./test/gql/all && graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@apollo/server": "^4.6.0",
@@ -45,6 +46,8 @@
     "@graphql-codegen/typescript": "^3.0.3",
     "@graphql-codegen/typescript-graphql-request": "^4.5.9",
     "@graphql-codegen/typescript-operations": "^3.0.3",
+    "@graphql-tools/load-files": "^6.6.1",
+    "@graphql-tools/merge": "^8.4.1",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",

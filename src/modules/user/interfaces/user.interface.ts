@@ -1,4 +1,5 @@
-//import { IProfile } from './profile.interface';
+import { IUserProfile } from './user-profile.interface';
+import { IRole } from '@/modules/role/interfaces';
 
 export class IUser {
     readonly id?: number;
@@ -10,11 +11,15 @@ export class IUser {
 
     readonly roleId: number;
 
+    readonly email: string;
+
     password: string;
 
-    readonly createdAt?: Date;
+    readonly createdAt?: string;
 
-    readonly updatedAt?: Date;
+    readonly updatedAt?: string;
 
-    // profile?: IProfile;
+    profile?: IUserProfile;
+
+    role?: IRole;
 }

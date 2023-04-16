@@ -11,7 +11,7 @@ export class IUserProfile {
 
     readonly address?: string;
 
-    readonly createdAt?: Date;
+    readonly createdAt?: string;
 
-    readonly updatedAt?: Date;
+    readonly updatedAt?: string;
 }

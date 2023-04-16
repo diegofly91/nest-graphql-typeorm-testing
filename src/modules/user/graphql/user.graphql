@@ -4,8 +4,8 @@ type User {
     password: String
     status: STATUS
     roleId: Int
-    createdAt: String
-    updatedAt: String
+    createdAt: Date
+    updatedAt: Date
     role: Role!
     profile: Profile
     ##company: Company

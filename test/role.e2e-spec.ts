@@ -1,32 +1,19 @@
 import { Sdk } from './gql/queries';
-import { Test } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { SessionFactory } from './common/session-builder';
-import { RoleRepositoryMock, rolesMock } from './helpers/role';
-import { Role } from '../src/modules/role/entities/role.entity';
-import { RoleModule } from '@/modules/role/role.module';
-import { GraphQL } from '../src/graphql/graphql.module';
-import { ConfigModule } from '@nestjs/config';
+import { createTestingApp } from './common/test-setup';
+import { rolesMock } from './helpers/role';
 
 describe('RoleResolver (e2e)', () => {
     let session: Sdk;
     let app: any;
 
     beforeEach(async () => {
-        const moduleFixture = await Test.createTestingModule({
-            imports: [RoleModule, GraphQL, ConfigModule.forRoot({ isGlobal: true })],
-        })
-            .overrideProvider(getRepositoryToken(Role))
-            .useClass(RoleRepositoryMock)
-            .overrideProvider('RoleRepositoryInterface')
-            .useClass(RoleRepositoryMock)
-            .compile();
-
-        app = moduleFixture.createNestApplication();
-        const sessionFactory = new SessionFactory(app);
-
-        await app.init();
+        const { sessionFactory, app: appInstance } = await createTestingApp();
         session = await sessionFactory.create();
+        app = appInstance;
+    });
+
+    afterAll(async () => {
+        await app.close();
     });
 
     describe('RoleResolver Query  (e2e)', () => {

@@ -1,5 +1,5 @@
 import { rolesMock } from './roles.mock';
-import { IRole } from '@/modules/role/interfaces';
+import { IRole, RoleInterfaceRepository } from '@/modules/role/interfaces';
 
 export class RoleRepositoryMock {
     getRoles(): Promise<IRole[]> {

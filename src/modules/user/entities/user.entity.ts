@@ -43,8 +43,8 @@ export class User implements IUser {
     status: string;
 
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
-    createdAt: Date;
+    createdAt: string;
 
     @UpdateDateColumn({ type: 'timestamp', name: 'updated_at', nullable: true })
-    updatedAt: Date;
+    updatedAt: string;
 }

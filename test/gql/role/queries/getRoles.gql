@@ -1,9 +1,0 @@
-query getRoles{
-    getRoles{
-        id
-        name
-        description
-        createdAt
-        updatedAt
-    }
-}
