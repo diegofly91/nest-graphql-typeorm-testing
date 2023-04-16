@@ -1,11 +1,11 @@
 import { CreateRoleDto, UpdateRoleDto } from '../dtos';
-import { Role } from '../entities';
-
-export interface RoleInterfaceRepository<Role> {
-    getRoles(): Promise<Role[]>;
-    getRoleById(roleId: number): Promise<Role>;
-    createRole(dto: CreateRoleDto): Promise<Role>;
-    createRoles(dto: CreateRoleDto[]): Promise<Role[]>;
-    updateRole(roleId: number, dto: UpdateRoleDto): Promise<Role>;
-    deleteRole(roleId: number): Promise<Role>;
+//import { Role } from '../entities';
+import { IRole } from './role.interface';
+export interface RoleInterfaceRepository<IRole> {
+    getRoles(): Promise<IRole[]>;
+    getRoleById(roleId: number): Promise<IRole>;
+    createRole(dto: CreateRoleDto): Promise<IRole>;
+    createRoles(dto: CreateRoleDto[]): Promise<IRole[]>;
+    updateRole(roleId: number, dto: UpdateRoleDto): Promise<IRole>;
+    deleteRole(roleId: number): Promise<IRole>;
 }

@@ -24,8 +24,7 @@ export class InputProfileUserDto {
 
     @MinLength(5, { message: 'la direccion es muy corto' })
     @MaxLength(100, { message: 'La direccion es muy largo' })
-    @IsEmail()
-    @IsNotEmpty()
+    @IsOptional()
     address: string;
 
     @IsString({ message: 'must be a valid number' })

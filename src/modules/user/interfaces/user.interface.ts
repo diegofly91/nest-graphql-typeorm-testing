@@ -1,13 +1,14 @@
 import { IUserProfile } from './user-profile.interface';
 import { IRole } from '@/modules/role/interfaces';
+import { Status } from '@/modules/shared/enums';
 
-export class IUser {
+export interface IUser {
     readonly id?: number;
 
     /**
      * User status ACTIVE | INACTIVE | default PREACTIVE
      */
-    readonly status?: string;
+    readonly status?: keyof typeof Status;
 
     readonly roleId: number;
 

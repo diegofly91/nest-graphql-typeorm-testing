@@ -1,13 +1,13 @@
-import { User } from '../entities';
 import { CreateUserDto } from '../dtos';
+import { IUser } from './user.interface';
 
-export interface UserInterfaceRepository<User> {
-    getUsers(): Promise<User[]>;
-    getUserById(id: number): Promise<User>;
-    getUserByEmail(email: string): Promise<User>;
-    getPasswordByEmail(email: string): Promise<User>;
+export interface UserInterfaceRepository<IUser> {
+    getUsers(): Promise<IUser[]>;
+    getUserById(id: number): Promise<IUser>;
+    getUserByEmail(email: string): Promise<IUser>;
+    getPasswordByEmail(email: string): Promise<IUser>;
     //getUserByCompanyId(companyId: number): Promise<User>;
-    createUser(dto: CreateUserDto): Promise<User>;
-    deleteUser(userId: number): Promise<User>;
+    createUser(dto: CreateUserDto): Promise<IUser>;
+    deleteUser(userId: number): Promise<IUser>;
     //newPasswordRequest(): Promise<string>;
 }

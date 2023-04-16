@@ -6,25 +6,20 @@ import { User } from '../entities';
 import { ProfileService } from '../services';
 import { InputProfileUserDto } from '../dtos';
 
-export function UserProfileInterceptor() {
-    @Injectable()
-    class ProfileInterceptor implements NestInterceptor {
-        constructor(public readonly profileService: ProfileService) {}
+@Injectable()
+export class UserProfileInterceptor implements NestInterceptor {
+    constructor(public readonly profileService: ProfileService) {}
 
-        async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
-            const ctx = GqlExecutionContext.create(context);
-            const input: InputProfileUserDto = ctx.getArgs().inputPro;
-
-            return next.handle().pipe(
-                tap(async (res: User) => {
-                    if (input && res) {
-                        const { id } = res;
-                        await this.profileService.createProfileUser(id, input);
-                    }
-                }),
-            );
-        }
+    async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
+        const ctx = GqlExecutionContext.create(context);
+        const inputPro: InputProfileUserDto = ctx.getArgs().inputPro;
+        return next.handle().pipe(
+            tap(async (res: User) => {
+                if (inputPro && res) {
+                    const { id } = res;
+                    await this.profileService.createProfileUser(id, inputPro);
+                }
+            }),
+        );
     }
-    const Interceptor = mixin(ProfileInterceptor);
-    return Interceptor;
 }

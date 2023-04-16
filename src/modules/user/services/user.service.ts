@@ -30,8 +30,8 @@ export class UserService {
         return await this.userRepository.getUserByCompanyId(companyId);
     } */
 
-    async createUser(dto: CreateUserDto): Promise<User> {
-        return this.userRepository.createUser(dto);
+    async createUser(input: CreateUserDto): Promise<User> {
+        return await this.userRepository.createUser(input);
     }
 
     async deleteUser(userId: number): Promise<User> {

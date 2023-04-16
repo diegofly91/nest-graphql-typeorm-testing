@@ -1,12 +1,12 @@
 import { CreateRoleDto, UpdateRoleDto } from '../dtos';
 import { BadRequestException, NotFoundException, Injectable } from '@nestjs/common';
-import { RoleInterfaceRepository } from '../interfaces/index';
+import { IRole, RoleInterfaceRepository } from '../interfaces/index';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from '../entities';
 
 @Injectable()
-export class RoleRepository<Role> implements RoleInterfaceRepository<Role> {
+export class RoleRepository<Role> implements RoleInterfaceRepository<IRole> {
     constructor(
         @InjectRepository(Role)
         private readonly roleRepository: Repository<Role>,

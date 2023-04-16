@@ -7,7 +7,8 @@ export class UserProfileRepositoryMock implements ProfileInterfaceRepository<IUs
     }
 
     async createProfileUser(userId: number, dto: any): Promise<IUserProfile> {
-        return Promise.resolve({ ...dto, userId, id: userProfilesMock.length + 1 });
+        userProfilesMock.push({ ...dto, userId, id: userProfilesMock.length + 1 });
+        return Promise.resolve(userProfilesMock[userProfilesMock.length]);
     }
 
     async updateProfileUser(userId: number, dto: any): Promise<IUserProfile> {

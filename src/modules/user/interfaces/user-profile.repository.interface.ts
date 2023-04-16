@@ -1,8 +1,9 @@
-import { UserProfile } from '../entities';
+//import { UserProfile } from '../entities';
 import { InputProfileUserDto } from '../dtos';
+import { IUserProfile } from './user-profile.interface';
 
-export interface ProfileInterfaceRepository<UserProfile> {
-    getProfileUserById(userId: number): Promise<UserProfile>;
-    createProfileUser(userId: number, dto: InputProfileUserDto): Promise<UserProfile>;
-    updateProfileUser(userId: number, dto: InputProfileUserDto): Promise<UserProfile>;
+export interface ProfileInterfaceRepository<IUserProfile> {
+    getProfileUserById(userId: number): Promise<IUserProfile>;
+    createProfileUser(userId: number, dto: InputProfileUserDto): Promise<IUserProfile>;
+    updateProfileUser(userId: number, dto: InputProfileUserDto): Promise<IUserProfile>;
 }

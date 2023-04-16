@@ -1,9 +1,10 @@
-import { /*BadRequestException, NotFoundException,*/ Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos';
 import { User } from '../entities';
 import { UserInterfaceRepository } from '../interfaces';
+import { Status } from '@/modules/shared/enums';
 
 @Injectable()
 export class UserRepository<User> implements UserInterfaceRepository<User> {
@@ -42,24 +43,20 @@ export class UserRepository<User> implements UserInterfaceRepository<User> {
         return await this.usersRepository.createQueryBuilder('user').where('user.email = :email', { email }).getOne();
     }
 
-    async createUser(dto: CreateUserDto): Promise<User> {
-        const exitsUsername = await this.getUserByEmail(dto.email);
-        if (exitsUsername) {
-            throw new HttpException('The Exits EMAIL', HttpStatus.PRECONDITION_FAILED);
-        }
+    async createUser({ email, roleId, status, password }: CreateUserDto): Promise<User> {
         const user = new User();
-        user.password = dto.password;
-        user.roleId = dto.roleId;
-        user.status = dto.status;
-        user.email = dto.email;
-
+        user.password = password;
+        user.roleId = roleId;
+        user.status = status;
+        user.email = email;
         const { raw } = await this.usersRepository.createQueryBuilder().insert().into(User).values(user).execute();
         return raw[0];
     }
 
     async deleteUser(userId: number): Promise<User> {
         const user: User = await this.getUserById(userId);
-        const userDeleted = await this.usersRepository.save(user);
+        const userUpdate = Object.assign(user, { status: Status.DELETED });
+        const userDeleted = await this.usersRepository.save(userUpdate);
         return userDeleted;
     }
 }

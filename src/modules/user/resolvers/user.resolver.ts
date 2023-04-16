@@ -1,6 +1,6 @@
 import { UsePipes, ValidationPipe, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Context, ResolveField, Parent } from '@nestjs/graphql';
-import { CreateUserDto } from '../dtos';
+import { CreateUserDto, InputProfileUserDto } from '../dtos';
 import { User, UserProfile } from '../entities';
 //import { Company } from '@/modules/company/entities';
 import { Role } from '@/modules/role/entities';
@@ -12,6 +12,7 @@ import { UserService, ProfileService } from '../services';
 // import { Roles } from '@/modules/role/decorators';
 //import { AuthGuard } from '@/modules/auth/guards/';
 import { UserProfileInterceptor } from '../interceptors';
+import { UserCreateGuard } from '../guards';
 
 //@UseGuards(RolesGuard)
 @Resolver(() => User)
@@ -43,18 +44,23 @@ export class UserResolver {
         return this.userService.getUserById(id);
     }
 
-    @UseInterceptors(UserProfileInterceptor())
+    @UseGuards(UserCreateGuard)
+    @UseInterceptors(UserProfileInterceptor)
     @UsePipes(new ValidationPipe())
     @Mutation(() => User, { nullable: true })
-    public async createUser(@Args('input') input: CreateUserDto): Promise<User> {
+    public async createUser(
+        @Args('input') input: CreateUserDto,
+        // dejar el inputPro en Args no reconoce error en el interceptor
+        @Args('inputPro') inputPro: InputProfileUserDto,
+    ): Promise<User> {
         return await this.userService.createUser(input);
     }
 
     // @UseGuards(AuthGuard)
     // @Roles(RoleType.SUPERUSER, RoleType.ADMIN)
-    @UsePipes(new ValidationPipe())
+    //@UsePipes(new ValidationPipe())
     @Mutation(() => User, { nullable: true })
-    public async deleteUser(@Args('id') id: number): Promise<User> {
+    async deleteUser(@Args('id') id: number): Promise<User> {
         return await this.userService.deleteUser(id);
     }
 

@@ -1,4 +1,4 @@
-export class IUserProfile {
+export interface IUserProfile {
     readonly id: number;
 
     readonly userId: number;

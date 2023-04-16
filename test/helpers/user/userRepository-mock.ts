@@ -1,5 +1,6 @@
-import { usersMock } from './user.mock';
-import { IUser, UserInterfaceRepository } from '@/modules/user/interfaces';
+import { usersMock } from './users-data.mock';
+import { IUser } from '@/modules/user/interfaces';
+import { Status } from '@/modules/shared/enums';
 
 export class UserRepositoryMock {
     getUsers(): Promise<IUser[]> {
@@ -18,11 +19,13 @@ export class UserRepositoryMock {
         return Promise.resolve(usersMock.find((user) => user.email === email));
     }
 
-    createUser(user: IUser): Promise<IUser> {
+    async createUser(user: IUser): Promise<IUser> {
         return Promise.resolve({ ...user, id: usersMock.length + 1 });
     }
 
     deleteUser(userId: number): Promise<IUser> {
-        return Promise.resolve(usersMock.find((user) => user.id === userId));
+        const user = usersMock.find((user) => user.id === userId);
+        const userUpdate = Object.assign(user, { status: Status.DELETED });
+        return Promise.resolve(userUpdate);
     }
 }

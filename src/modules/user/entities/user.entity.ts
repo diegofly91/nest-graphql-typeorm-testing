@@ -39,8 +39,13 @@ export class User implements IUser {
     @JoinColumn({ name: 'role_id' })
     role: Role;
 
-    @Column({ type: 'varchar', default: Status.ACTIVE, nullable: true, length: 9 })
-    status: string;
+    @Column({
+        type: 'varchar',
+        default: Status.ACTIVE,
+        nullable: false,
+        length: 9,
+    })
+    status: keyof typeof Status;
 
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
     createdAt: string;
