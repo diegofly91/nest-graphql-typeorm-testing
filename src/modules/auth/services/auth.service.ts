@@ -15,7 +15,6 @@ export class AuthService implements IAuthService {
     async payloadData(email: string): Promise<IToken> {
         const { id, status, roleId } = await this.userService.getPasswordByEmail(email);
         const role = await this.roleService.getRoleById(roleId);
-
         const payload = {
             id,
             email,

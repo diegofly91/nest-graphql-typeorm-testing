@@ -2,6 +2,7 @@ import { Injectable, CanActivate, ExecutionContext, HttpException, HttpStatus } 
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { UserService } from '../services';
 import { CreateUserDto } from '../dtos';
+import { MESSAGES } from '@/modules/shared/constants';
 
 @Injectable()
 export class UserCreateGuard implements CanActivate {
@@ -12,7 +13,7 @@ export class UserCreateGuard implements CanActivate {
         const { email }: CreateUserDto = ctx.getArgs().input;
         const usernameExists = await this.userService.getUserByEmail(email);
         if (usernameExists) {
-            throw new HttpException('The Exits EMAIL', HttpStatus.PRECONDITION_FAILED);
+            throw new HttpException(MESSAGES.EMAIL_EXIST, HttpStatus.PRECONDITION_FAILED);
         }
         return true;
     }

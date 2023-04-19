@@ -3,7 +3,7 @@ import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthService } from '../services';
 import { IUserPayload } from '../interfaces';
-
+import { MESSAGES } from '@/modules/shared/constants';
 @Injectable()
 export class RolesGuard implements CanActivate {
     constructor(private reflector: Reflector, private readonly authService: AuthService) {}
@@ -19,10 +19,10 @@ export class RolesGuard implements CanActivate {
         try {
             const user: IUserPayload = await this.authService.userCurrentData(token);
             if (!(user && roles.includes(user.roleName))) {
-                throw new HttpException('You do not have authorization to access..', HttpStatus.UNAUTHORIZED);
+                throw new HttpException(MESSAGES.UNAUTORIZATED_USER, HttpStatus.UNAUTHORIZED);
             }
         } catch (error) {
-            throw new HttpException('You do not have authorization to access..', HttpStatus.UNAUTHORIZED);
+            throw new HttpException(MESSAGES.UNAUTORIZATED_USER, HttpStatus.UNAUTHORIZED);
         }
         return true;
     }

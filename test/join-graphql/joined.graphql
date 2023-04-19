@@ -1,0 +1,121 @@
+type UserPayload {
+  id: Int!
+  email: String!
+  status: String!
+  roleId: Int!
+  roleName: String
+}
+
+type Token {
+  access_token: String!
+  expirate_in: Int!
+}
+
+input LoginUserDto {
+  email: String!
+  password: String!
+}
+
+type Query {
+  userCurrentData: UserPayload
+  getRoleById(id: Int!): Role!
+  getRoles: [Role!]!
+  getProfileUserById(userId: Int!): Profile
+  getUser(id: Int!): User!
+  getUserData: User!
+  getUsers: [User!]!
+}
+
+type Mutation {
+  loginUser(input: LoginUserDto!): Token
+  updateProfileUser(input: InputProfileUserDto!): Profile!
+  createUser(input: CreateUserDto!, inputPro: InputProfileUserDto): User!
+  deleteUser(id: Int!): User!
+}
+
+type Role {
+  id: Int!
+  name: String!
+  description: String
+  createdAt: Date
+  updatedAt: Date
+}
+
+scalar Date
+
+enum STATUS {
+  ACTIVE
+  INACTIVE
+  PREACTIVE
+  DELETED
+}
+
+""" Input de paginacion  """
+input Pagination {
+  limit: Int
+  offset: Int
+}
+
+""" Input Options """
+input Options {
+  isActive: Boolean
+  deleted: Boolean
+  status: STATUS
+}
+
+""" Input para  """
+input WithAssocOptions {
+  creates: [JokerById]
+  deletes: [JokerById]
+}
+
+""" Input by Id """
+input JokerById {
+  id: Int!
+}
+
+scalar Image
+
+scalar VideoFile
+
+type Profile {
+  id: Int!
+  userId: Int!
+  firstname: String
+  lastname: String
+  address: String
+  phone: String
+  createdAt: Date
+  updatedAt: Date
+}
+
+input InputProfileUserDto {
+  firstname: String
+  lastname: String
+  address: String
+  phone: String
+}
+
+type User {
+  id: Int!
+  email: String!
+  password: String
+  status: STATUS
+  roleId: Int
+  createdAt: Date
+  updatedAt: Date
+  role: Role!
+  profile: Profile
+}
+
+input CreateUserDto {
+  email: String!
+  roleId: Int!
+  password: String!
+  status: STATUS
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

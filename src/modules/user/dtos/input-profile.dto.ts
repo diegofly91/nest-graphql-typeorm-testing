@@ -8,7 +8,7 @@ import {
     ValidationArguments,
 } from 'class-validator';
 import { BadRequestException, InternalServerErrorException } from '@nestjs/common';
-
+import { MESSAGES } from '@/modules/shared/constants';
 export class InputProfileUserDto {
     @MinLength(5, { message: 'Title is too short' })
     @MaxLength(60, { message: 'Title is too long' })
@@ -30,7 +30,7 @@ export class InputProfileUserDto {
     @IsPhoneNumber('CO', {
         message: (args: ValidationArguments) => {
             if (args.value.length !== 12) {
-                throw new BadRequestException(`${args.value} Invalid MobilePhone Number`);
+                throw new BadRequestException(`${args.value} ${MESSAGES.INVALID_MOBILE}}`);
             } else {
                 throw new InternalServerErrorException();
             }
