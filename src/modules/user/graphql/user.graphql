@@ -21,7 +21,7 @@ input CreateUserDto {
 
 type Query {
     getUser(id: Int!): User!
-    ##getUserData: User!
+    getUserData: User!
     getUsers: [User!]!
 }
 

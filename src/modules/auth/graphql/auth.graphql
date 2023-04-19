@@ -1,0 +1,30 @@
+type UserPayload {
+    id: Int!
+    email: String!
+    status: String!
+    roleId: Int!
+    roleName: String
+}
+
+type Token {
+    access_token: String!
+    expirate_in: Int!
+}
+
+input LoginUserDto {
+    email: String!
+    password: String!
+}
+
+# input UpdatePasswordDto {
+#     password: String!
+#     newPassword: String!
+# }
+
+type Query {
+    userCurrentData: UserPayload
+}
+
+type Mutation {
+    loginUser(input: LoginUserDto!): Token
+}

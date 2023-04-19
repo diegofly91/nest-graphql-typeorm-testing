@@ -1,5 +1,4 @@
 import { CreateUserDto } from '../dtos';
-import { IUser } from './user.interface';
 
 export interface UserInterfaceRepository<IUser> {
     getUsers(): Promise<IUser[]>;

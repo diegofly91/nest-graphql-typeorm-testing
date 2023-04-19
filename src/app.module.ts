@@ -5,9 +5,18 @@ import { DatabaseModule } from './database';
 import { RoleModule } from './modules/role/role.module';
 import { SeederModule } from './modules/seeder/seeder.module';
 import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
-    imports: [ConfigModule.forRoot({ isGlobal: true }), DatabaseModule, GraphQL, RoleModule, UserModule, SeederModule],
+    imports: [
+        ConfigModule.forRoot({ isGlobal: true }),
+        DatabaseModule,
+        GraphQL,
+        RoleModule,
+        UserModule,
+        SeederModule,
+        AuthModule,
+    ],
     providers: [],
 })
 export class AppModule {

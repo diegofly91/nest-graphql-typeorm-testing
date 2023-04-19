@@ -3,14 +3,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository, ProfileRepository /* UserCompanyRepository */ } from './repositories';
 import { UserResolver, ProfileResolver /* UserCompanyResolver*/ } from './resolvers';
 import { UserService, ProfileService /* , UserCompanyService */ } from './services';
-// import { AuthModule } from '../auth';
+import { AuthModule } from '../auth/auth.module';
 import { User, UserProfile /*, , UserCompany */ } from './entities';
 // import { CompanyModule } from '../company';
 import { RoleModule } from '../role/role.module';
 
 @Module({
     imports: [
-        // forwardRef(() => AuthModule),
+        forwardRef(() => AuthModule),
         // forwardRef(() => CompanyModule),
         forwardRef(() => RoleModule),
         TypeOrmModule.forFeature([User, UserProfile /*, UserCompany*/]),

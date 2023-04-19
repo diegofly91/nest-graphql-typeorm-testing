@@ -1,6 +1,5 @@
 //import { UserProfile } from '../entities';
 import { InputProfileUserDto } from '../dtos';
-import { IUserProfile } from './user-profile.interface';
 
 export interface ProfileInterfaceRepository<IUserProfile> {
     getProfileUserById(userId: number): Promise<IUserProfile>;

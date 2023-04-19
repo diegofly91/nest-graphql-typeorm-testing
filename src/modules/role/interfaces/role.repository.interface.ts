@@ -1,6 +1,4 @@
 import { CreateRoleDto, UpdateRoleDto } from '../dtos';
-//import { Role } from '../entities';
-import { IRole } from './role.interface';
 export interface RoleInterfaceRepository<IRole> {
     getRoles(): Promise<IRole[]>;
     getRoleById(roleId: number): Promise<IRole>;
