@@ -30,6 +30,9 @@
 
 ```bash
 $ npm install
+
+# create .env file and add the following variables example .env.example
+# run docker-compose file from the root folder, to create the database and pgAdmin 
 ```
 
 ## Running the app
@@ -65,3 +68,5 @@ $ sudo docker-compose up -d
 
 sudo sudo lsof -i :5432
 sudo kill -9 PID
+
+```
