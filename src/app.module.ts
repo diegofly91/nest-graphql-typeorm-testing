@@ -1,11 +1,11 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
-import { GraphQL } from './graphql';
-import { DatabaseModule } from './database';
 import { RoleModule } from './modules/role/role.module';
 import { SeederModule } from './modules/seeder/seeder.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { DatabaseModule } from './configurations/database';
+import { GraphQL } from './configurations/graphql';
 
 @Module({
     imports: [

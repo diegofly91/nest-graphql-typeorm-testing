@@ -6,7 +6,7 @@ import { Role } from '@/modules/role/entities/role.entity';
 import { UserProfileRepositoryMock, UserRepositoryMock } from '../helpers/user';
 import { RoleRepositoryMock } from '../helpers/role';
 import { SessionFactory } from './session-builder';
-import { GraphQL } from '../../src/graphql/graphql.module';
+import { GraphQL } from '../../src/configurations/graphql/graphql.module';
 import { ConfigModule } from '@nestjs/config';
 import { RoleModule } from '@/modules/role/role.module';
 import { LoginValidateGuardMock } from '../helpers/auth';

@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import path from 'node:path';
+
+const dirEntities = '@modules/**/entities/*.entity{.ts,.js}';
+console.log({ dirEntities });
 
 @Injectable()
 export class TypeOrmService implements TypeOrmOptionsFactory {
@@ -15,7 +19,7 @@ export class TypeOrmService implements TypeOrmOptionsFactory {
             acquireTimeout: 60000,
             migrationsRun: !!process.env.DATABASE_AUTOLOADENTITIES,
             synchronize: !!process.env.DATABASE_AUTOLOADENTITIES,
-            entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+            entities: [__dirname + '/../../**/*.entity{.ts,.js}'],
             migrations: [__dirname + process.env.DATABASE_MIGRATIONS_DIR + '/*.{.ts,.js}'],
         };
 
