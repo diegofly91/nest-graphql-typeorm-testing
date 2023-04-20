@@ -11,10 +11,11 @@ import { ConfigModule } from '@nestjs/config';
 import { RoleModule } from '@/modules/role/role.module';
 import { LoginValidateGuardMock } from '../helpers/auth';
 import { LoginValidateGuard } from '@/modules/auth/guards';
+import { AuthModule } from '@/modules/auth/auth.module';
 
 export const createTestingApp = async () => {
     const moduleFixture = await Test.createTestingModule({
-        imports: [UserModule, RoleModule, GraphQL, ConfigModule.forRoot({ isGlobal: true })],
+        imports: [UserModule, RoleModule, AuthModule, GraphQL, ConfigModule.forRoot({ isGlobal: true })],
     })
         .overrideGuard(LoginValidateGuard)
         .useClass(LoginValidateGuardMock)

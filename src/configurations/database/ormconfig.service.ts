@@ -1,9 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import path from 'node:path';
-
-const dirEntities = '@modules/**/entities/*.entity{.ts,.js}';
-console.log({ dirEntities });
 
 @Injectable()
 export class TypeOrmService implements TypeOrmOptionsFactory {

@@ -46,7 +46,7 @@ export class UserResolver {
     @Mutation(() => User, { nullable: true })
     public async createUser(
         @Args('input') input: CreateUserDto,
-        // dejar el inputPro en Args no reconoce error en el interceptor
+        // leaving the inputPro in Args does not recognize error in the interceptor
         @Args('inputPro') inputPro: InputProfileUserDto,
     ): Promise<User> {
         return await this.userService.createUser(input);
