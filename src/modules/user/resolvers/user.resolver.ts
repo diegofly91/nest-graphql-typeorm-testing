@@ -25,13 +25,13 @@ export class UserResolver {
     @Roles(RoleType.SUPERUSER, RoleType.ADMIN)
     @Query(() => [User])
     async getUsers(): Promise<User[]> {
-        return this.userService.getUsers();
+        return await this.userService.getUsers();
     }
 
     @UseGuards(AuthGuard)
     @Query(() => User, { nullable: true })
     async getUserData(@Context('user') { id }: IUserPayload): Promise<User> {
-        return this.userService.getUserById(id);
+        return await this.userService.getUserById(id);
     }
 
     @Roles(RoleType.SUPERUSER, RoleType.ADMIN, RoleType.ADVISER)

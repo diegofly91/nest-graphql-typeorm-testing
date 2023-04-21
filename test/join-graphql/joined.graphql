@@ -18,6 +18,8 @@ input LoginUserDto {
 
 type Query {
   userCurrentData: UserPayload
+  getCategory(id: Int!): Category!
+  getCategories: [Category!]!
   getRoleById(id: Int!): Role!
   getRoles: [Role!]!
   getProfileUserById(userId: Int!): Profile
@@ -28,11 +30,31 @@ type Query {
 
 type Mutation {
   loginUser(input: LoginUserDto!): Token
+  createCategory(input: InputCategoryDto!): Category!
+  updateCategory(id: Int!, input: InputCategoryDto!): Category!
+  deleteCategory(id: Int!): Category!
   updateProfileUser(input: InputProfileUserDto!): Profile!
   updatePasswordRequest(input: SignUpPasswordDto!): Boolean!
   createUserAdviser(input: CreateUserDto!, inputPro: InputProfileUserAdviserDto!): User!
   createUser(input: CreateUserDto!, inputPro: InputProfileUserDto): User!
   deleteUser(id: Int!): User!
+}
+
+type Category {
+  id: Int!
+  name: String!
+  description: String
+  picture: String
+  status: STATUS!
+  createdAt: String!
+  updatedAt: String
+}
+
+input InputCategoryDto {
+  name: String!
+  description: String
+  picture: String
+  status: STATUS!
 }
 
 type Role {

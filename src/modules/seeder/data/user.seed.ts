@@ -14,6 +14,7 @@ export const usersSeed: { userDto: CreateUserDto; profileDto: InputProfileUserDt
             firstname: 'Diego',
             lastname: 'Libreros',
             phone: '809-555-5555',
+            city: 'Santo Domingo',
             address: 'Calle 1, Santo Domingo, República Dominicana',
         },
     },

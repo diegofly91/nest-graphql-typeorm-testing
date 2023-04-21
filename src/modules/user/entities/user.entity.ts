@@ -19,7 +19,7 @@ export class User implements IUser {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({ type: 'varchar', length: 60 })
+    @Column({ type: 'varchar', unique: true, length: 60 })
     email: string;
 
     @BeforeInsert()

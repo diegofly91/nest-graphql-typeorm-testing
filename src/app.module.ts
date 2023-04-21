@@ -6,10 +6,12 @@ import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './configurations/database';
 import { GraphQL } from './configurations/graphql';
+import { CategoryModule } from './modules/category/category.module';
 
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }),
+        CategoryModule,
         DatabaseModule,
         GraphQL,
         RoleModule,

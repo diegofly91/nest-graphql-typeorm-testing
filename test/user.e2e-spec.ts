@@ -9,7 +9,6 @@ import {
 import { usersMock } from './helpers/user';
 import { createTestingApp } from './common/test-setup';
 import { MESSAGES } from '@/modules/shared/constants';
-import e from 'express';
 
 describe('UserResolver (e2e)', () => {
     let session: Sdk;

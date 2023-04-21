@@ -4,7 +4,6 @@ import { IRole, RoleInterfaceRepository } from '../interfaces/index';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from '../entities';
-import { RoleType } from '../enums';
 
 @Injectable()
 export class RoleRepository<Role> implements RoleInterfaceRepository<IRole> {

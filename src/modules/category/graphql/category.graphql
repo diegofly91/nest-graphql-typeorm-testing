@@ -1,0 +1,27 @@
+type Category {
+  id: Int!
+  name: String!
+  description: String
+  picture: String
+  status: STATUS!
+  createdAt: String!
+  updatedAt: String
+}
+
+input InputCategoryDto {
+   name: String!
+   description: String
+   picture: String
+   status: STATUS!
+}
+
+type Query {
+   getCategory(id: Int!): Category!
+   getCategories: [Category!]!
+}
+
+type Mutation {
+  createCategory(input: InputCategoryDto!): Category! 
+  updateCategory(id: Int!, input: InputCategoryDto!): Category!
+  deleteCategory(id: Int!): Category!
+}

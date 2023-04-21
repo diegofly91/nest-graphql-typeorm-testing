@@ -12,10 +12,19 @@ import { RoleModule } from '@/modules/role/role.module';
 import { LoginValidateGuardMock } from '../helpers/auth';
 import { LoginValidateGuard } from '@/modules/auth/guards';
 import { AuthModule } from '@/modules/auth/auth.module';
-
+import { CategoryModule } from '@/modules/category/category.module';
+import { CategoryRepositoryMock } from '../helpers/category';
+import { Category } from '@/modules/category/entities';
 export const createTestingApp = async () => {
     const moduleFixture = await Test.createTestingModule({
-        imports: [UserModule, RoleModule, AuthModule, GraphQL, ConfigModule.forRoot({ isGlobal: true })],
+        imports: [
+            UserModule,
+            RoleModule,
+            AuthModule,
+            CategoryModule,
+            GraphQL,
+            ConfigModule.forRoot({ isGlobal: true }),
+        ],
     })
         .overrideGuard(LoginValidateGuard)
         .useClass(LoginValidateGuardMock)
@@ -31,6 +40,10 @@ export const createTestingApp = async () => {
         .useClass(RoleRepositoryMock)
         .overrideProvider('RoleRepositoryInterface')
         .useClass(RoleRepositoryMock)
+        .overrideProvider(getRepositoryToken(Category))
+        .useClass(CategoryRepositoryMock)
+        .overrideProvider('CategoryRepositoryInterface')
+        .useClass(CategoryRepositoryMock)
         .compile();
 
     const app = moduleFixture.createNestApplication();
