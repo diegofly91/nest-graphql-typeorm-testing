@@ -10,9 +10,9 @@ export class UserCreateGuard implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const ctx = GqlExecutionContext.create(context);
-        const { email }: CreateUserDto = ctx.getArgs().input;
-        const usernameExists = await this.userService.getUserByEmail(email);
-        if (usernameExists) {
+        const input: CreateUserDto = ctx.getArgs().input;
+        const usernameExists = await this.userService.getUserByEmail(input.email);
+        if (!!usernameExists) {
             throw new HttpException(MESSAGES.EMAIL_EXIST, HttpStatus.PRECONDITION_FAILED);
         }
         return true;

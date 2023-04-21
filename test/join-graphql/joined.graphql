@@ -29,6 +29,7 @@ type Query {
 type Mutation {
   loginUser(input: LoginUserDto!): Token
   updateProfileUser(input: InputProfileUserDto!): Profile!
+  updatePasswordRequest(input: SignUpPasswordDto!): Boolean!
   createUser(input: CreateUserDto!, inputPro: InputProfileUserDto): User!
   deleteUser(id: Int!): User!
 }
@@ -113,6 +114,11 @@ input CreateUserDto {
   roleId: Int!
   password: String!
   status: STATUS
+}
+
+input SignUpPasswordDto {
+  password: String!
+  passwordConfirm: String!
 }
 
 schema {

@@ -43,6 +43,15 @@ export class UserRepository<User> implements UserInterfaceRepository<User> {
         return await this.usersRepository.createQueryBuilder('user').where('user.email = :email', { email }).getOne();
     }
 
+    async updateUserPassword(email: string, password: string): Promise<boolean> {
+        const user = await this.getUserByEmail(email);
+        const updatePassword = new User();
+        updatePassword.password = password;
+        const updateUser = Object.assign(user, { password: updatePassword.password });
+        const saved = await this.usersRepository.save(updateUser);
+        return !!saved;
+    }
+
     async createUser({ email, roleId, status, password }: CreateUserDto): Promise<User> {
         const user = new User();
         user.password = password;

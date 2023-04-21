@@ -8,5 +8,6 @@ export interface UserInterfaceRepository<IUser> {
     //getUserByCompanyId(companyId: number): Promise<User>;
     createUser(dto: CreateUserDto): Promise<IUser>;
     deleteUser(userId: number): Promise<IUser>;
+    updateUserPassword(email: string, password: string): Promise<boolean>;
     //newPasswordRequest(): Promise<string>;
 }

@@ -26,6 +26,10 @@ export class UserService {
         return await this.userRepository.getPasswordByEmail(email);
     }
 
+    async updateUserPassword(email: string, password: string): Promise<boolean> {
+        return await this.userRepository.updateUserPassword(email, password);
+    }
+
     /*  async getUserByCompanyId(companyId: string): Promise<User> {
         return await this.userRepository.getUserByCompanyId(companyId);
     } */

@@ -1,8 +1,9 @@
 import { usersMock } from './users-data.mock';
-import { IUser } from '@/modules/user/interfaces';
+import { IUser, UserInterfaceRepository } from '@/modules/user/interfaces';
 import { Status } from '@/modules/shared/enums';
+import { CreateUserDto } from '@/modules/user/dtos';
 
-export class UserRepositoryMock {
+export class UserRepositoryMock implements UserInterfaceRepository<IUser> {
     getUsers(): Promise<IUser[]> {
         return Promise.resolve([...usersMock]);
     }
@@ -12,15 +13,27 @@ export class UserRepositoryMock {
     }
 
     getUserByEmail(email: string): Promise<IUser> {
-        return Promise.resolve(usersMock.find((user) => user.email === email));
+        const user = usersMock.find((user) => user.email === email);
+        return Promise.resolve(user);
     }
 
     getPasswordByEmail(email: string): Promise<IUser> {
         return Promise.resolve(usersMock.find((user) => user.email === email));
     }
 
-    async createUser(user: IUser): Promise<IUser> {
-        return Promise.resolve({ ...user, id: usersMock.length + 1 });
+    createUser(dto: CreateUserDto): Promise<IUser> {
+        return Promise.resolve({
+            ...dto,
+            id: usersMock.length + 1,
+            createdAt: new Date().toDateString(),
+            updatedAt: new Date().toDateString(),
+        });
+    }
+
+    updateUserPassword(email: string, password: string): Promise<boolean> {
+        const user = usersMock.find((user) => user.email === email);
+        const userUpdate = Object.assign(user, { password });
+        return Promise.resolve(!!userUpdate);
     }
 
     deleteUser(userId: number): Promise<IUser> {

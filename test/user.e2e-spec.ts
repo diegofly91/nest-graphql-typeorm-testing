@@ -1,4 +1,4 @@
-import { Sdk, Status, CreateUserDto, InputProfileUserDto } from './gql/queries';
+import { Sdk, Status, CreateUserDto, InputProfileUserDto, SignUpPasswordDto } from './gql/queries';
 import { usersMock } from './helpers/user';
 import { createTestingApp } from './common/test-setup';
 import { MESSAGES } from '@/modules/shared/constants';
@@ -10,7 +10,7 @@ describe('UserResolver (e2e)', () => {
 
     const newUser: { input: CreateUserDto; inputPro: InputProfileUserDto } = {
         input: {
-            email: 'diegofermamdolibres@gmail.com',
+            email: 'diego22@gmail.com',
             roleId: 1,
             password: 'holamudno',
             status: Status.Active,
@@ -68,7 +68,9 @@ describe('UserResolver (e2e)', () => {
                 role: expect.any(Object),
             });
         });
+    });
 
+    describe('UserResolver Mutation Error (e2e)', () => {
         it(`createUser return Error ${MESSAGES.INVALID_MOBILE}`, async () => {
             try {
                 const { input, inputPro } = newUser;
@@ -84,13 +86,42 @@ describe('UserResolver (e2e)', () => {
         it(`createUser return Error ${MESSAGES.EMAIL_EXIST}`, async () => {
             try {
                 const { input, inputPro } = newUser;
-                input.email = usersMock[0].email;
+                input.email = usersMock[1].email;
                 await session.createUser({ input, inputPro });
             } catch ({ response }) {
                 response.errors.map((error) => {
                     expect(error.message).toContain(MESSAGES.EMAIL_EXIST);
                 });
             }
+        });
+
+        it('updateUserPassword ', async () => {
+            const input: SignUpPasswordDto = {
+                password: 'holamundo',
+                passwordConfirm: 'holamundo',
+            };
+            const { updatePasswordRequest } = await session.updatePasswordRequest(
+                { input },
+                { Authorization: access_token },
+            );
+            expect(updatePasswordRequest).toEqual(true);
+        });
+    });
+
+    describe('UserResolver Mutation Success (e2e)', () => {
+        it('createUser return User', async () => {
+            const { input, inputPro } = newUser;
+            input.email = 'minuevo@gmail.com';
+            inputPro.phone = '3204426066';
+            const { createUser } = await session.createUser({ input, inputPro });
+            expect(createUser).toEqual({
+                id: expect.any(Number),
+                ...input,
+                createdAt: expect.any(String),
+                updatedAt: expect.any(String),
+                profile: expect.any(Object),
+                role: expect.any(Object),
+            });
         });
 
         it('delete user by Id', async () => {

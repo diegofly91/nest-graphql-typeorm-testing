@@ -19,6 +19,11 @@ input CreateUserDto {
     status: STATUS
 }
 
+input SignUpPasswordDto {
+    password: String!
+    passwordConfirm: String!
+}
+
 type Query {
     getUser(id: Int!): User!
     getUserData: User!
@@ -26,6 +31,7 @@ type Query {
 }
 
 type Mutation {
+    updatePasswordRequest(input: SignUpPasswordDto!): Boolean!
     createUser(input: CreateUserDto!, inputPro: InputProfileUserDto): User!
     deleteUser(id: Int!): User!
 }

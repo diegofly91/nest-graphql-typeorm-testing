@@ -1,18 +1,8 @@
-import {
-    MinLength,
-    MaxLength,
-    IsNotEmpty,
-    IsString,
-    IsPhoneNumber,
-    IsOptional,
-    ValidationArguments,
-} from 'class-validator';
+import { MaxLength, IsString, IsPhoneNumber, IsOptional, ValidationArguments } from 'class-validator';
 import { BadRequestException, InternalServerErrorException } from '@nestjs/common';
 import { MESSAGES } from '@/modules/shared/constants';
 export class InputProfileUserDto {
-    @MinLength(5, { message: 'Title is too short' })
     @MaxLength(60, { message: 'Title is too long' })
-    @IsNotEmpty()
     @IsString()
     @IsOptional()
     firstname: string;
@@ -21,7 +11,6 @@ export class InputProfileUserDto {
     @IsOptional()
     lastname: string;
 
-    @MinLength(5, { message: 'la direccion es muy corto' })
     @MaxLength(100, { message: 'La direccion es muy largo' })
     @IsOptional()
     address: string;

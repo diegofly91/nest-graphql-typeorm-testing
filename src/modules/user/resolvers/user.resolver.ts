@@ -1,6 +1,6 @@
 import { UsePipes, ValidationPipe, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Context, ResolveField, Parent } from '@nestjs/graphql';
-import { CreateUserDto, InputProfileUserDto } from '../dtos';
+import { CreateUserDto, InputProfileUserDto, SignUpPasswordDto } from '../dtos';
 import { User, UserProfile } from '../entities';
 import { Role } from '@/modules/role/entities';
 import { RoleService } from '@/modules/role/services';
@@ -50,6 +50,16 @@ export class UserResolver {
         @Args('inputPro') inputPro: InputProfileUserDto,
     ): Promise<User> {
         return await this.userService.createUser(input);
+    }
+
+    @UseGuards(AuthGuard)
+    @UsePipes(new ValidationPipe())
+    @Mutation(() => User, { nullable: true })
+    public async updatePasswordRequest(
+        @Context('user') { email }: IUserPayload,
+        @Args('input') { password }: SignUpPasswordDto,
+    ): Promise<boolean> {
+        return await this.userService.updateUserPassword(email, password);
     }
 
     @Roles(RoleType.SUPERUSER, RoleType.ADMIN)

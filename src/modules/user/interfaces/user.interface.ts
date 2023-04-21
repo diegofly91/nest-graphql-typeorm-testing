@@ -14,7 +14,7 @@ export interface IUser {
 
     readonly email: string;
 
-    password: string;
+    readonly password: string;
 
     readonly createdAt?: string;
 
