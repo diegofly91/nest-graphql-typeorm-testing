@@ -18,11 +18,7 @@ export class InputProfileUserDto {
     @IsString({ message: 'must be a valid number' })
     @IsPhoneNumber('CO', {
         message: (args: ValidationArguments) => {
-            if (args.value.length !== 12) {
-                throw new BadRequestException(`${args.value} ${MESSAGES.INVALID_MOBILE}}`);
-            } else {
-                throw new InternalServerErrorException();
-            }
+            throw new BadRequestException(`${args.value} ${MESSAGES.INVALID_MOBILE}`);
         },
     })
     @IsOptional()

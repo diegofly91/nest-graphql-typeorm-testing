@@ -107,7 +107,6 @@ describe('UserResolver (e2e)', () => {
             expect(updatePasswordRequest).toEqual(true);
         });
     });
-
     describe('UserResolver Mutation Success (e2e)', () => {
         it('createUser return User', async () => {
             const { input, inputPro } = newUser;
@@ -121,6 +120,25 @@ describe('UserResolver (e2e)', () => {
                 updatedAt: expect.any(String),
                 profile: expect.any(Object),
                 role: expect.any(Object),
+            });
+        });
+
+        it('UpdateUserProfile return sucess', async () => {
+            const { getUserData } = await session.getUserData({}, { Authorization: access_token });
+            const { id, profile } = getUserData;
+            const input: InputProfileUserDto = {
+                firstname: 'Diego',
+                address: 'Calle 123',
+                lastname: 'Libreros',
+                phone: '3204426065',
+            };
+            const { updateProfileUser } = await session.updateProfileUser({ input }, { Authorization: access_token });
+            expect(updateProfileUser).toEqual({
+                id: profile.id,
+                userId: id,
+                ...input,
+                createdAt: expect.any(String),
+                updatedAt: expect.any(String),
             });
         });
 
