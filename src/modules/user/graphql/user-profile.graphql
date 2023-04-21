@@ -4,6 +4,7 @@ type Profile {
     firstname: String
     lastname: String
     address: String
+    city: String
     phone: String
     createdAt: Date
     updatedAt: Date
@@ -14,6 +15,15 @@ input InputProfileUserDto {
     lastname: String
     address: String
     phone: String
+    city: String
+}
+
+input InputProfileUserAdviserDto {
+    firstname: String!
+    lastname: String
+    address: String!
+    phone: String!
+    city: String!
 }
 
 type Query {

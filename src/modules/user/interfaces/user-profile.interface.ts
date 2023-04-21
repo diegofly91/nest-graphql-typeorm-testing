@@ -7,6 +7,8 @@ export interface IUserProfile {
 
     readonly lastname?: string;
 
+    readonly city?: string;
+
     readonly phone?: string;
 
     readonly address?: string;

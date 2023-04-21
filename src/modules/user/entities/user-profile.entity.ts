@@ -29,6 +29,9 @@ export class UserProfile implements IUserProfile {
     lastname: string;
 
     @Column({ type: 'varchar', nullable: true, default: '', length: 100 })
+    city: string;
+
+    @Column({ type: 'varchar', nullable: true, default: '', length: 100 })
     address: string;
 
     @Column({ type: 'varchar', nullable: true, length: 20 })

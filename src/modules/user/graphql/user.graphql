@@ -32,6 +32,7 @@ type Query {
 
 type Mutation {
     updatePasswordRequest(input: SignUpPasswordDto!): Boolean!
+    createUserAdviser(input: CreateUserDto!, inputPro: InputProfileUserAdviserDto!): User!
     createUser(input: CreateUserDto!, inputPro: InputProfileUserDto): User!
     deleteUser(id: Int!): User!
 }

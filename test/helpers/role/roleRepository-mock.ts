@@ -11,6 +11,10 @@ export class RoleRepositoryMock implements RoleInterfaceRepository<IRole> {
         return Promise.resolve(rolesMock.find((role) => role.id === id));
     }
 
+    getRoleByName(name: string): Promise<IRole> {
+        return Promise.resolve(rolesMock.find((role) => role.name === name));
+    }
+
     createRole(dto: CreateRoleDto): Promise<IRole> {
         return Promise.resolve({ ...dto, id: rolesMock.length + 1 });
     }

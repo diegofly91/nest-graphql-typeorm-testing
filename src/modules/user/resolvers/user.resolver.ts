@@ -1,6 +1,6 @@
 import { UsePipes, ValidationPipe, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Context, ResolveField, Parent } from '@nestjs/graphql';
-import { CreateUserDto, InputProfileUserDto, SignUpPasswordDto } from '../dtos';
+import { CreateUserDto, InputProfileUserDto, SignUpPasswordDto, InputProfileUserAdviserDto } from '../dtos';
 import { User, UserProfile } from '../entities';
 import { Role } from '@/modules/role/entities';
 import { RoleService } from '@/modules/role/services';
@@ -9,7 +9,7 @@ import { UserService, ProfileService } from '../services';
 import { RolesGuard } from '@/modules/auth/guards';
 import { Roles } from '@/modules/role/decorators';
 import { AuthGuard } from '@/modules/auth/guards/';
-import { UserProfileInterceptor } from '../interceptors';
+import { UserProfileInterceptor, UserProfileAdviserInterceptor } from '../interceptors';
 import { UserCreateGuard } from '../guards';
 import { IUserPayload } from '@/modules/auth/interfaces';
 
@@ -48,6 +48,18 @@ export class UserResolver {
         @Args('input') input: CreateUserDto,
         // leaving the inputPro in Args does not recognize error in the interceptor
         @Args('inputPro') inputPro: InputProfileUserDto,
+    ): Promise<User> {
+        return await this.userService.createUser(input);
+    }
+
+    @UseGuards(UserCreateGuard)
+    @UseInterceptors(UserProfileAdviserInterceptor)
+    @UsePipes(new ValidationPipe())
+    @Mutation(() => User, { nullable: true })
+    public async createUserAdviser(
+        @Args('input') input: CreateUserDto,
+        // leaving the inputPro in Args does not recognize error in the interceptor
+        @Args('inputPro') inputPro: InputProfileUserAdviserDto,
     ): Promise<User> {
         return await this.userService.createUser(input);
     }

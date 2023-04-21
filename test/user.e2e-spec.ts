@@ -1,7 +1,15 @@
-import { Sdk, Status, CreateUserDto, InputProfileUserDto, SignUpPasswordDto } from './gql/queries';
+import {
+    Sdk,
+    Status,
+    CreateUserDto,
+    InputProfileUserDto,
+    SignUpPasswordDto,
+    InputProfileUserAdviserDto,
+} from './gql/queries';
 import { usersMock } from './helpers/user';
 import { createTestingApp } from './common/test-setup';
 import { MESSAGES } from '@/modules/shared/constants';
+import e from 'express';
 
 describe('UserResolver (e2e)', () => {
     let session: Sdk;
@@ -20,6 +28,7 @@ describe('UserResolver (e2e)', () => {
             lastname: 'Doe',
             phone: '3204426066',
             address: 'Calle 123',
+            city: 'Medellin',
         },
     };
 
@@ -95,6 +104,18 @@ describe('UserResolver (e2e)', () => {
             }
         });
 
+        it('createUserAdviser return User send inputPto null return Error', async () => {
+            try {
+                const { input } = newUser;
+                input.email = 'minuevo3@gmail.com';
+                await session.createUserAdviser({ input, inputPro: null });
+            } catch ({ response }) {
+                response.errors.map((error) => {
+                    expect(error.message).toContain('Variable "$inputPro" of non-null type');
+                });
+            }
+        });
+
         it('updateUserPassword ', async () => {
             const input: SignUpPasswordDto = {
                 password: 'holamundo',
@@ -108,6 +129,42 @@ describe('UserResolver (e2e)', () => {
         });
     });
     describe('UserResolver Mutation Success (e2e)', () => {
+        it('createUserAdviser return User', async () => {
+            const { input } = newUser;
+            const inputProfile: InputProfileUserAdviserDto = {
+                address: 'Calle 123',
+                city: 'Medellin',
+                phone: '3204426066',
+                firstname: 'John',
+                lastname: 'Doe',
+            };
+            input.email = 'minuevo3@gmail.com';
+            const { createUserAdviser } = await session.createUserAdviser({ input, inputPro: inputProfile });
+            expect(createUserAdviser).toEqual({
+                id: expect.any(Number),
+                ...input,
+                roleId: expect.any(Number),
+                createdAt: expect.any(String),
+                updatedAt: expect.any(String),
+                profile: expect.any(Object),
+                role: expect.any(Object),
+            });
+        });
+
+        it('createUser dont send profile data return User ', async () => {
+            const { input } = newUser;
+            input.email = 'minuevo2@gmail.com';
+            const { createUser } = await session.createUser({ input });
+            expect(createUser).toEqual({
+                id: expect.any(Number),
+                ...input,
+                createdAt: expect.any(String),
+                updatedAt: expect.any(String),
+                profile: expect.any(Object),
+                role: expect.any(Object),
+            });
+        });
+
         it('createUser return User', async () => {
             const { input, inputPro } = newUser;
             input.email = 'minuevo@gmail.com';
@@ -131,6 +188,7 @@ describe('UserResolver (e2e)', () => {
                 address: 'Calle 123',
                 lastname: 'Libreros',
                 phone: '3204426065',
+                city: 'Villavicencio',
             };
             const { updateProfileUser } = await session.updateProfileUser({ input }, { Authorization: access_token });
             expect(updateProfileUser).toEqual({

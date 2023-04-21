@@ -1,10 +1,10 @@
-import { MaxLength, IsString, IsPhoneNumber, IsOptional, ValidationArguments } from 'class-validator';
+import { MaxLength, IsString, IsPhoneNumber, IsOptional, ValidationArguments, IsNotEmpty } from 'class-validator';
 import { BadRequestException } from '@nestjs/common';
 import { MESSAGES } from '@/modules/shared/constants';
-export class InputProfileUserDto {
+export class InputProfileUserAdviserDto {
     @MaxLength(60, { message: 'Title is too long' })
     @IsString()
-    @IsOptional()
+    @IsNotEmpty()
     firstname: string;
 
     @MaxLength(60, { message: 'Description is too long caracters' })
@@ -12,11 +12,11 @@ export class InputProfileUserDto {
     lastname: string;
 
     @MaxLength(100, { message: 'City is too long' })
-    @IsOptional()
+    @IsNotEmpty()
     city: string;
 
     @MaxLength(100, { message: 'Address is too long' })
-    @IsOptional()
+    @IsNotEmpty()
     address: string;
 
     @IsString({ message: 'must be a valid number' })
@@ -25,6 +25,6 @@ export class InputProfileUserDto {
             throw new BadRequestException(`${args.value} ${MESSAGES.INVALID_MOBILE}`);
         },
     })
-    @IsOptional()
-    phone?: string;
+    @IsNotEmpty()
+    phone: string;
 }
