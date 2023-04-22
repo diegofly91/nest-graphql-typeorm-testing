@@ -3,15 +3,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { InputCategoryDto } from '../dtos';
 import { Category } from '../entities';
-import { ICategoryRepository } from '../interfaces';
+import { ICategory, ICategoryRepository } from '../interfaces';
 import { Status } from '@/modules/shared/enums';
-
 @Injectable()
-export class CategoryRepository<Category> implements ICategoryRepository<Category> {
+export class CategoryRepository extends Repository<Category> implements ICategoryRepository<ICategory> {
     constructor(
         @InjectRepository(Category)
         private readonly categoryRepository: Repository<Category>,
-    ) {}
+    ) {
+        super(categoryRepository.target, categoryRepository.manager, categoryRepository.queryRunner);
+    }
 
     async getCategories(): Promise<Category[]> {
         return await this.categoryRepository.find();
@@ -43,8 +44,12 @@ export class CategoryRepository<Category> implements ICategoryRepository<Categor
     }
 
     async deleteCategory(id: number): Promise<Category> {
-        const category: Category = await this.getCategoryById(id);
-        const categoryUpdate = Object.assign(category, { status: Status.DELETED });
-        return await this.categoryRepository.save(categoryUpdate);
+        const { raw } = await this.categoryRepository
+            .createQueryBuilder()
+            .update(Category)
+            .set({ status: Status.DELETED })
+            .where('id = :id', { id })
+            .execute();
+        return raw[0];
     }
 }

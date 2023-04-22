@@ -1,7 +1,7 @@
-import { IUserProfile, ProfileInterfaceRepository } from '@/modules/user/interfaces';
+import { IUserProfile, IProfileRepository } from '@/modules/user/interfaces';
 import { userProfilesMock } from './userProfile.mock';
 
-export class UserProfileRepositoryMock implements ProfileInterfaceRepository<IUserProfile> {
+export class UserProfileRepositoryMock implements IProfileRepository<IUserProfile> {
     async getProfileUserById(userId: number): Promise<IUserProfile> {
         return Promise.resolve(userProfilesMock.find((profile) => profile.userId === userId));
     }

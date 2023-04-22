@@ -1,9 +1,9 @@
 import { usersMock } from './users-data.mock';
-import { IUser, UserInterfaceRepository } from '@/modules/user/interfaces';
+import { IUser, IUserRepository } from '@/modules/user/interfaces';
 import { Status } from '@/modules/shared/enums';
 import { CreateUserDto } from '@/modules/user/dtos';
 
-export class UserRepositoryMock implements UserInterfaceRepository<IUser> {
+export class UserRepositoryMock implements IUserRepository<IUser> {
     getUsers(): Promise<IUser[]> {
         return Promise.resolve([...usersMock]);
     }

@@ -3,15 +3,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos';
 import { User } from '../entities';
-import { UserInterfaceRepository } from '../interfaces';
+import { IUser, IUserRepository } from '../interfaces';
 import { Status } from '@/modules/shared/enums';
 
 @Injectable()
-export class UserRepository<User> implements UserInterfaceRepository<User> {
+export class UserRepository extends Repository<User> implements IUserRepository<IUser> {
     constructor(
         @InjectRepository(User)
         private readonly usersRepository: Repository<User>,
-    ) {}
+    ) {
+        super(usersRepository.target, usersRepository.manager, usersRepository.queryRunner);
+    }
 
     async getUsers(): Promise<User[]> {
         return await this.usersRepository.find();
@@ -62,10 +64,13 @@ export class UserRepository<User> implements UserInterfaceRepository<User> {
         return raw[0];
     }
 
-    async deleteUser(userId: number): Promise<User> {
-        const user: User = await this.getUserById(userId);
-        const userUpdate = Object.assign(user, { status: Status.DELETED });
-        const userDeleted = await this.usersRepository.save(userUpdate);
-        return userDeleted;
+    async deleteUser(id: number): Promise<User> {
+        const { raw } = await this.usersRepository
+            .createQueryBuilder()
+            .update(User)
+            .set({ status: Status.DELETED })
+            .where('id = :id', { id })
+            .execute();
+        return raw[0];
     }
 }

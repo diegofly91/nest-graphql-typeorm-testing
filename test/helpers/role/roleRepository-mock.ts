@@ -1,8 +1,8 @@
 import { CreateRoleDto } from '@/modules/role/dtos';
 import { rolesMock } from './roles.mock';
-import { IRole, RoleInterfaceRepository } from '@/modules/role/interfaces';
+import { IRole, IRoleRepository } from '@/modules/role/interfaces';
 
-export class RoleRepositoryMock implements RoleInterfaceRepository<IRole> {
+export class RoleRepositoryMock implements IRoleRepository<IRole> {
     getRoles(): Promise<IRole[]> {
         return Promise.resolve(rolesMock);
     }

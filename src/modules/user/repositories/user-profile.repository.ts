@@ -3,14 +3,16 @@ import { InputProfileUserDto } from '../dtos';
 import { UserProfile } from '../entities';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProfileInterfaceRepository } from '../interfaces';
+import { IUserProfile, IProfileRepository } from '../interfaces';
 
 @Injectable()
-export class ProfileRepository<UserProfile> implements ProfileInterfaceRepository<UserProfile> {
+export class ProfileRepository extends Repository<UserProfile> implements IProfileRepository<IUserProfile> {
     constructor(
         @InjectRepository(UserProfile)
         private readonly profileRepository: Repository<UserProfile>,
-    ) {}
+    ) {
+        super(profileRepository.target, profileRepository.manager, profileRepository.queryRunner);
+    }
 
     async getProfileUserById(userId: number): Promise<UserProfile> {
         return await this.profileRepository

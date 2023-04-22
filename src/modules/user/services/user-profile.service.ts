@@ -1,14 +1,11 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InputProfileUserDto } from '../dtos';
 import { UserProfile } from '../entities';
 import { ProfileRepository } from '../repositories';
 
 @Injectable()
 export class ProfileService {
-    constructor(
-        @Inject('ProfileRepositoryInterface')
-        private readonly profileUserRepository: ProfileRepository<UserProfile>,
-    ) {}
+    constructor(private readonly profileUserRepository: ProfileRepository) {}
 
     async getProfileUserById(userId: number): Promise<UserProfile> {
         return await this.profileUserRepository.getProfileUserById(userId);

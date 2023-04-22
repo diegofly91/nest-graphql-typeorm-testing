@@ -1,12 +1,12 @@
 import { CreateRoleDto, UpdateRoleDto } from '../dtos';
 import { BadRequestException, NotFoundException, Injectable } from '@nestjs/common';
-import { IRole, RoleInterfaceRepository } from '../interfaces/index';
+import { IRole, IRoleRepository } from '../interfaces/index';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from '../entities';
 
 @Injectable()
-export class RoleRepository extends Repository<Role> implements RoleInterfaceRepository<IRole> {
+export class RoleRepository extends Repository<Role> implements IRoleRepository<IRole> {
     constructor(
         @InjectRepository(Role)
         private readonly roleRepository: Repository<Role>,
@@ -57,9 +57,7 @@ export class RoleRepository extends Repository<Role> implements RoleInterfaceRep
     }
 
     async deleteRole(roleId: number): Promise<Role> {
-        if (!roleId) throw new BadRequestException('The role ID is required');
         const role = await this.getRoleById(roleId);
-        const roleDeleted = await this.roleRepository.remove(role);
-        return roleDeleted;
+        return await this.roleRepository.remove(role);
     }
 }

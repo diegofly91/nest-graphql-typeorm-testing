@@ -8,14 +8,7 @@ import { Category } from './entities';
 @Global()
 @Module({
     imports: [TypeOrmModule.forFeature([Category])],
-    providers: [
-        CategoryService,
-        CategoryResolver,
-        {
-            provide: 'CategoryRepositoryInterface',
-            useClass: CategoryRepository,
-        },
-    ],
+    providers: [CategoryService, CategoryResolver, CategoryRepository],
     exports: [CategoryService],
 })
 export class CategoryModule {}

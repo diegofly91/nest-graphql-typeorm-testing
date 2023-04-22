@@ -1,21 +1,23 @@
 import { Test } from '@nestjs/testing';
+import { UserProfileRepositoryMock, UserRepositoryMock } from '../helpers/user';
+import { RoleRepositoryMock } from '../helpers/role';
+import { CategoryRepositoryMock } from '../helpers/category';
+import { LoginValidateGuardMock } from '../helpers/auth';
 import { UserModule } from '@/modules/user/user.module';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User, UserProfile } from '@/modules/user/entities';
 import { Role } from '@/modules/role/entities/role.entity';
-import { UserProfileRepositoryMock, UserRepositoryMock } from '../helpers/user';
-import { RoleRepositoryMock } from '../helpers/role';
 import { SessionFactory } from './session-builder';
 import { GraphQL } from '../../src/configurations/graphql/graphql.module';
 import { ConfigModule } from '@nestjs/config';
 import { RoleModule } from '@/modules/role/role.module';
-import { LoginValidateGuardMock } from '../helpers/auth';
 import { LoginValidateGuard } from '@/modules/auth/guards';
 import { AuthModule } from '@/modules/auth/auth.module';
 import { CategoryModule } from '@/modules/category/category.module';
-import { CategoryRepositoryMock } from '../helpers/category';
 import { Category } from '@/modules/category/entities';
 import { RoleRepository } from '@/modules/role/repositories';
+import { ProfileRepository, UserRepository } from '@/modules/user/repositories';
+import { CategoryRepository } from '@/modules/category/repositories';
 
 export const createTestingApp = async () => {
     const moduleFixture = await Test.createTestingModule({
@@ -28,25 +30,29 @@ export const createTestingApp = async () => {
             ConfigModule.forRoot({ isGlobal: true }),
         ],
     })
-        .overrideGuard(LoginValidateGuard)
-        .useClass(LoginValidateGuardMock)
+        // overrideProvider User
         .overrideProvider(getRepositoryToken(User))
+        .useClass(User)
+        .overrideProvider(UserRepository)
         .useClass(UserRepositoryMock)
-        .overrideProvider('UserRepositoryInterface')
-        .useClass(UserRepositoryMock)
+        // overrideProvider UserProfile
         .overrideProvider(getRepositoryToken(UserProfile))
-        .useClass(UserProfileRepositoryMock)
-        .overrideProvider('ProfileRepositoryInterface')
+        .useClass(UserProfile)
+        .overrideProvider(ProfileRepository)
         .useClass(UserProfileRepositoryMock)
         // overrirdeProvider Role
         .overrideProvider(getRepositoryToken(Role))
         .useClass(Role)
         .overrideProvider(RoleRepository)
         .useClass(RoleRepositoryMock)
+        // overrideProvider Category
         .overrideProvider(getRepositoryToken(Category))
+        .useClass(Category)
+        .overrideProvider(CategoryRepository)
         .useClass(CategoryRepositoryMock)
-        .overrideProvider('CategoryRepositoryInterface')
-        .useClass(CategoryRepositoryMock)
+        // overrideProvider LoginValidateGuard Auth Module
+        .overrideGuard(LoginValidateGuard)
+        .useClass(LoginValidateGuardMock)
         .compile();
 
     const app = moduleFixture.createNestApplication();

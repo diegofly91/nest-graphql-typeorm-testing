@@ -1,14 +1,11 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Category } from '../entities';
 import { CategoryRepository } from '../repositories';
 import { InputCategoryDto } from '../dtos';
 
 @Injectable()
 export class CategoryService {
-    constructor(
-        @Inject('CategoryRepositoryInterface')
-        private readonly userRepository: CategoryRepository<Category>,
-    ) {}
+    constructor(private readonly userRepository: CategoryRepository) {}
 
     async getCategories(): Promise<Category[]> {
         return await this.userRepository.getCategories();

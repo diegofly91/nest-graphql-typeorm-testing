@@ -8,20 +8,7 @@ import { User, UserProfile /*, , UserCompany */ } from './entities';
 @Global()
 @Module({
     imports: [TypeOrmModule.forFeature([User, UserProfile])],
-    providers: [
-        {
-            provide: 'UserRepositoryInterface',
-            useClass: UserRepository,
-        },
-        {
-            provide: 'ProfileRepositoryInterface',
-            useClass: ProfileRepository,
-        },
-        UserService,
-        ProfileService,
-        UserResolver,
-        ProfileResolver,
-    ],
+    providers: [UserRepository, ProfileRepository, UserService, ProfileService, UserResolver, ProfileResolver],
     exports: [UserService, ProfileService],
 })
 export class UserModule {}
