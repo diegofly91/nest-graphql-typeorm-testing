@@ -1,7 +1,7 @@
 import { ICategory } from '@/modules/category/interfaces';
 import { Status } from '@/modules/shared/enums';
 
-export const categoriesMock: ICategory[] = [
+const categoriesMock: ICategory[] = [
     {
         id: 1,
         name: 'Category 1',
@@ -21,3 +21,5 @@ export const categoriesMock: ICategory[] = [
         updatedAt: new Date().toISOString(),
     },
 ];
+
+export { categoriesMock };

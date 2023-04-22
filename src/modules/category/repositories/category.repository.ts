@@ -14,12 +14,19 @@ export class CategoryRepository extends Repository<Category> implements ICategor
         super(categoryRepository.target, categoryRepository.manager, categoryRepository.queryRunner);
     }
 
-    async getCategories(): Promise<Category[]> {
+    async getAllCategories(): Promise<Category[]> {
         return await this.categoryRepository.find();
     }
 
     async getCategoryById(id: number): Promise<Category> {
         return await this.categoryRepository.createQueryBuilder('category').where('category.id = :id', { id }).getOne();
+    }
+
+    async getCategoryByName(name: string): Promise<Category> {
+        return await this.categoryRepository
+            .createQueryBuilder('category')
+            .where('LOWER(category.name) = :name', { name: name.toLowerCase() })
+            .getOne();
     }
 
     async createCategory({ name, description, picture, status }: InputCategoryDto): Promise<Category> {

@@ -16,8 +16,8 @@ input InputCategoryDto {
 }
 
 type Query {
-   getCategory(id: Int!): Category!
-   getCategories: [Category!]!
+   getCategoryById(id: Int!): Category!
+   getAllCategories: [Category!]!
 }
 
 type Mutation {

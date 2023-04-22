@@ -18,8 +18,8 @@ input LoginUserDto {
 
 type Query {
   userCurrentData: UserPayload
-  getCategory(id: Int!): Category!
-  getCategories: [Category!]!
+  getCategoryById(id: Int!): Category!
+  getAllCategories: [Category!]!
   getRoleById(id: Int!): Role!
   getRoles: [Role!]!
   getProfileUserById(userId: Int!): Profile

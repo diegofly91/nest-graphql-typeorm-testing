@@ -4,4 +4,5 @@ export const MESSAGES = {
     INVALID_MOBILE: ` Invalid MobilePhone Number...`,
     EMAIL_EXIST: `Email already exists...`,
     UNAUTORIZATED_USER: `You do not have authorization to access..`,
+    CATEGORY_NAME_EXIST: `Category name already exists...`,
 };

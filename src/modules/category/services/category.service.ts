@@ -7,12 +7,16 @@ import { InputCategoryDto } from '../dtos';
 export class CategoryService {
     constructor(private readonly userRepository: CategoryRepository) {}
 
-    async getCategories(): Promise<Category[]> {
-        return await this.userRepository.getCategories();
+    async getAllCategories(): Promise<Category[]> {
+        return await this.userRepository.getAllCategories();
     }
 
     async getCategoryById(id: number): Promise<Category> {
         return await this.userRepository.getCategoryById(id);
+    }
+
+    async getCategoryByName(name: string): Promise<Category> {
+        return await this.userRepository.getCategoryByName(name);
     }
 
     async createCategory(input: InputCategoryDto): Promise<Category> {

@@ -4,12 +4,16 @@ import { ICategory, ICategoryRepository } from '@/modules/category/interfaces';
 import { Status } from '@/modules/shared/enums';
 
 export class CategoryRepositoryMock implements ICategoryRepository<ICategory> {
-    getCategories(): Promise<ICategory[]> {
+    getAllCategories(): Promise<ICategory[]> {
         return Promise.resolve(categoriesMock);
     }
 
     getCategoryById(id: number): Promise<ICategory> {
         return Promise.resolve(categoriesMock.find((category) => category.id === id));
+    }
+
+    getCategoryByName(name: string): Promise<ICategory> {
+        return Promise.resolve(categoriesMock.find((category) => category.name.toLowerCase() === name.toLowerCase()));
     }
 
     createCategory(input: InputCategoryDto): Promise<ICategory> {

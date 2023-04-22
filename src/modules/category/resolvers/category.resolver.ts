@@ -7,6 +7,7 @@ import { CategoryService } from '../services';
 import { RolesGuard } from '@/modules/auth/guards';
 import { Roles } from '@/modules/role/decorators';
 import { AuthGuard } from '@/modules/auth/guards/';
+import { CategoryCreateGuard, CategoryUpdateGuard } from '../guards';
 
 @UseGuards(RolesGuard)
 @Resolver(() => Category)
@@ -14,15 +15,16 @@ export class CategoryResolver {
     constructor(private readonly categoryService: CategoryService) {}
 
     @Query(() => Category)
-    async getCategory(@Args('id') id: number): Promise<Category> {
+    async getCategoryById(@Args('id') id: number): Promise<Category> {
         return await this.categoryService.getCategoryById(id);
     }
 
     @Query(() => [Category], { nullable: true })
-    async getCategories(): Promise<Category[]> {
-        return await this.categoryService.getCategories();
+    async getAllCategories(): Promise<Category[]> {
+        return await this.categoryService.getAllCategories();
     }
 
+    @UseGuards(CategoryCreateGuard)
     @Roles(RoleType.SUPERUSER, RoleType.ADMIN)
     @UseGuards(AuthGuard)
     @UsePipes(new ValidationPipe())
@@ -31,6 +33,7 @@ export class CategoryResolver {
         return await this.categoryService.createCategory(input);
     }
 
+    @UseGuards(CategoryUpdateGuard)
     @Roles(RoleType.SUPERUSER, RoleType.ADMIN)
     @UseGuards(AuthGuard)
     @UsePipes(new ValidationPipe())
