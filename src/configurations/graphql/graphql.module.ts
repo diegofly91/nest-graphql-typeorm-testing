@@ -13,12 +13,9 @@ export const GraphQL = GraphQLModule.forRootAsync<ApolloDriverConfig>({
         path: '/',
         debug: configService.get('GRAPHQL_DEGUB') === 'true',
         playground: configService.get('GRAPHQL_DEGUB') === 'true',
-        // subscriptions: {
-        //     'graphql-ws': {
-        //         path: '/subscriptions',
-        //     },
-        //     'subscriptions-transport-ws': true,
-        // },
+        subscriptions: {
+            'graphql-ws': { path: '/graphql' },
+        },
         context: ({ req, connection }) => (connection ? { headers: connection.context } : { headers: req.headers }),
         formatError: ({ message }: GraphQLFormattedError) => {
             return {
