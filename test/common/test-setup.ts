@@ -15,6 +15,8 @@ import { AuthModule } from '@/modules/auth/auth.module';
 import { CategoryModule } from '@/modules/category/category.module';
 import { CategoryRepositoryMock } from '../helpers/category';
 import { Category } from '@/modules/category/entities';
+import { RoleRepository } from '@/modules/role/repositories';
+
 export const createTestingApp = async () => {
     const moduleFixture = await Test.createTestingModule({
         imports: [
@@ -36,9 +38,10 @@ export const createTestingApp = async () => {
         .useClass(UserProfileRepositoryMock)
         .overrideProvider('ProfileRepositoryInterface')
         .useClass(UserProfileRepositoryMock)
+        // overrirdeProvider Role
         .overrideProvider(getRepositoryToken(Role))
-        .useClass(RoleRepositoryMock)
-        .overrideProvider('RoleRepositoryInterface')
+        .useClass(Role)
+        .overrideProvider(RoleRepository)
         .useClass(RoleRepositoryMock)
         .overrideProvider(getRepositoryToken(Category))
         .useClass(CategoryRepositoryMock)

@@ -6,11 +6,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from '../entities';
 
 @Injectable()
-export class RoleRepository<Role> implements RoleInterfaceRepository<IRole> {
+export class RoleRepository extends Repository<Role> implements RoleInterfaceRepository<IRole> {
     constructor(
         @InjectRepository(Role)
         private readonly roleRepository: Repository<Role>,
-    ) {}
+    ) {
+        super(roleRepository.target, roleRepository.manager, roleRepository.queryRunner);
+    }
 
     async getRoles(): Promise<Role[]> {
         return await this.roleRepository.createQueryBuilder('role').getMany();
