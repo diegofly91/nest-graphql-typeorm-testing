@@ -26,6 +26,10 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Contact
+
+[Author](https://diegofly91.github.io/diegolibreros/) Diego Fernando Libreros B.
+
 ## Installation
 
 ```bash
