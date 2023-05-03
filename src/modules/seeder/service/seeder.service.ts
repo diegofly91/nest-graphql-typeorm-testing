@@ -3,9 +3,10 @@ import { InputProfileUserDto, CreateUserDto } from '@/modules/user/dtos';
 import { RoleService } from '@/modules/role/services';
 import { ProfileService, UserService } from '@/modules/user/services';
 import { rolesSeed, usersSeed } from '../data';
-
+import { RoleType } from '@/modules/role/enums';
 import { CreateRoleDto } from '@/modules/role/dtos';
 import { User } from '@/modules/user/entities';
+import { Role } from '@/modules/role/entities';
 
 @Injectable()
 export class SeederService {
@@ -37,16 +38,25 @@ export class SeederService {
     }
 
     async createUsers() {
+        const roles: Role[] = await this.roleService.getRoles();
         await Promise.all(
-            usersSeed.map(async (item: { userDto: CreateUserDto; profileDto: InputProfileUserDto }) => {
-                const { userDto, profileDto } = item;
-                const exists = await this.userService.getUserByEmail(userDto.email);
-                if (exists === null) {
-                    const user: User = await this.userService.createUser(userDto);
-                    await this.profileUserService.createProfileUser(user.id, profileDto);
-                }
-                this.logger.debug('Seeder User created: ' + userDto.email);
-            }),
+            usersSeed.map(
+                async (item: {
+                    userDto: CreateUserDto;
+                    profileDto: InputProfileUserDto;
+                    roleName: keyof typeof RoleType;
+                }) => {
+                    const { userDto, profileDto, roleName } = item;
+                    const role = roles.find((role) => role.name === roleName);
+                    const exists = await this.userService.getUserByEmail(userDto.email);
+                    if (exists === null) {
+                        userDto.roleId = role.id;
+                        const user: User = await this.userService.createUser(userDto);
+                        await this.profileUserService.createProfileUser(user.id, profileDto);
+                    }
+                    this.logger.debug('Seeder User created: ' + userDto.email);
+                },
+            ),
         );
     }
 }

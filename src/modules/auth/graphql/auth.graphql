@@ -6,6 +6,11 @@ type UserPayload {
     roleName: String
 }
 
+enum SocialProviders {
+    GOOGLE
+    FACEBOOK
+}
+
 type Token {
     access_token: String!
     expirate_in: Int!
@@ -15,6 +20,14 @@ input LoginUserDto {
     email: String!
     password: String!
 }
+
+input LoginSocialDto {
+    accessToken: String!
+    provider: SocialProviders!
+    roleType: RoleType
+}
+
+
 
 # input UpdatePasswordDto {
 #     password: String!
@@ -27,4 +40,5 @@ type Query {
 
 type Mutation {
     loginUser(input: LoginUserDto!): Token
+    loginSocial(input: LoginSocialDto!): Token
 }

@@ -4,7 +4,7 @@ import { PassportModule } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from './services';
 import { AuthResolver } from './resolvers/auth.resolver';
-import { JwtStrategy, LocalStrategy } from './strategies';
+import { JwtStrategy, LocalStrategy, GoogleStrategy, FacebookStrategy } from './strategies';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { RolesGuard } from './guards';
 
@@ -24,6 +24,8 @@ import { RolesGuard } from './guards';
         AuthService,
         LocalStrategy,
         JwtStrategy,
+        GoogleStrategy,
+        FacebookStrategy,
         AuthResolver,
         {
             provide: APP_INTERCEPTOR,

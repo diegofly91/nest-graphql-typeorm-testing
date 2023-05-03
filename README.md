@@ -74,3 +74,7 @@ sudo sudo lsof -i :5432
 sudo kill -9 PID
 
 ```
+### Implementations
+
+```
+# login to Google and Facebook https://dev.to/chukwutosin_/implement-google-oauth-in-nestjs-using-passport-1j3k

@@ -11,4 +11,11 @@ type Query {
     getRoles: [Role!]!
 }
 
+enum RoleType {
+    SUPERUSER
+    ADMIN
+    ADVISER
+    CUSTOMER
+}
+
 scalar Date

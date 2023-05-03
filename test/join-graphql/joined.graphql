@@ -6,6 +6,11 @@ type UserPayload {
   roleName: String
 }
 
+enum SocialProviders {
+  GOOGLE
+  FACEBOOK
+}
+
 type Token {
   access_token: String!
   expirate_in: Int!
@@ -14,6 +19,12 @@ type Token {
 input LoginUserDto {
   email: String!
   password: String!
+}
+
+input LoginSocialDto {
+  accessToken: String!
+  provider: SocialProviders!
+  roleType: RoleType
 }
 
 type Query {
@@ -30,6 +41,7 @@ type Query {
 
 type Mutation {
   loginUser(input: LoginUserDto!): Token
+  loginSocial(input: LoginSocialDto!): Token
   createCategory(input: InputCategoryDto!): Category!
   updateCategory(id: Int!, input: InputCategoryDto!): Category!
   deleteCategory(id: Int!): Category!
@@ -63,6 +75,13 @@ type Role {
   description: String
   createdAt: Date
   updatedAt: Date
+}
+
+enum RoleType {
+  SUPERUSER
+  ADMIN
+  ADVISER
+  CUSTOMER
 }
 
 scalar Date

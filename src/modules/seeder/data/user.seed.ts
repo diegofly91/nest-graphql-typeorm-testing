@@ -1,15 +1,20 @@
+import { RoleType } from '@/modules/role/enums';
 import { Status } from '@/modules/shared/enums';
 import { CreateUserDto, InputProfileUserDto } from '@/modules/user/dtos';
 
-export const usersSeed: { userDto: CreateUserDto; profileDto: InputProfileUserDto }[] = [
+export const usersSeed: {
+    userDto: CreateUserDto;
+    profileDto: InputProfileUserDto;
+    roleName: keyof typeof RoleType;
+}[] = [
     {
         userDto: {
-            email: 'diegofernandolibreros@gmail.com',
-            //roleId 1 is SUPERUSER
-            roleId: 1,
+            email: 'diego_fernandolibreros@hotmail.com',
+            roleId: 0,
             password: 'DiegoPassword',
             status: Status.ACTIVE,
         },
+        roleName: RoleType.SUPERUSER,
         profileDto: {
             firstname: 'Diego',
             lastname: 'Libreros',
