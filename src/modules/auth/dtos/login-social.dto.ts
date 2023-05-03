@@ -1,6 +1,5 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { socialProviders } from '../constants/constants';
-import { RoleType } from '@/modules/role/enums';
 
 export class LoginSocialDto {
     @IsNotEmpty()
@@ -10,8 +9,4 @@ export class LoginSocialDto {
     @IsNotEmpty()
     @IsString()
     provider: keyof typeof socialProviders;
-
-    @IsNotEmpty()
-    @IsOptional()
-    roleType: keyof typeof RoleType;
 }

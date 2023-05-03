@@ -1,7 +1,7 @@
 import { UsePipes, ValidationPipe, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Args, Mutation, Resolver, Query, Context } from '@nestjs/graphql';
 import { AuthService } from '../services';
-import { LoginUserDto, LoginSocialDto } from '../dtos';
+import { LoginUserDto, LoginSocialDto, RegisterSocialDto } from '../dtos';
 import { User } from '@/modules/user/entities';
 import { AuthGuard, LoginValidateGuard, SocialAuthGuard } from '../guards';
 import { IToken, IUserPayload } from '../interfaces';
@@ -20,7 +20,6 @@ export class AuthResolver {
     }
 
     @UseGuards(SocialAuthGuard)
-    @UseInterceptors(CreateUserSocialInterceptor)
     @Mutation(() => Boolean)
     async loginSocial(@Args('input') input: LoginSocialDto, @SocialProfile() { email }: Profile): Promise<IToken> {
         return await this.authService.payloadData(email);
@@ -30,6 +29,16 @@ export class AuthResolver {
     @UsePipes(new ValidationPipe())
     @Mutation(() => User)
     async loginUser(@Args('input') { email }: LoginUserDto): Promise<IToken> {
+        return await this.authService.payloadData(email);
+    }
+
+    @UseGuards(SocialAuthGuard)
+    @UseInterceptors(CreateUserSocialInterceptor)
+    @Mutation(() => Boolean)
+    async registerSocial(
+        @Args('input') input: RegisterSocialDto,
+        @SocialProfile() { email }: Profile,
+    ): Promise<IToken> {
         return await this.authService.payloadData(email);
     }
 }

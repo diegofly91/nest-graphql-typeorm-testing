@@ -24,10 +24,13 @@ input LoginUserDto {
 input LoginSocialDto {
     accessToken: String!
     provider: SocialProviders!
-    roleType: RoleType
 }
 
-
+input RegisterSocialDto {
+    accessToken: String!
+    provider: SocialProviders!
+    roleType: RoleType
+}
 
 # input UpdatePasswordDto {
 #     password: String!
@@ -41,4 +44,5 @@ type Query {
 type Mutation {
     loginUser(input: LoginUserDto!): Token
     loginSocial(input: LoginSocialDto!): Token
+    registerSocial(input: RegisterSocialDto!): Token
 }
