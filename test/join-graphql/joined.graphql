@@ -24,6 +24,11 @@ input LoginUserDto {
 input LoginSocialDto {
   accessToken: String!
   provider: SocialProviders!
+}
+
+input RegisterSocialDto {
+  accessToken: String!
+  provider: SocialProviders!
   roleType: RoleType
 }
 
@@ -42,6 +47,7 @@ type Query {
 type Mutation {
   loginUser(input: LoginUserDto!): Token
   loginSocial(input: LoginSocialDto!): Token
+  registerSocial(input: RegisterSocialDto!): Token
   createCategory(input: InputCategoryDto!): Category!
   updateCategory(id: Int!, input: InputCategoryDto!): Category!
   deleteCategory(id: Int!): Category!

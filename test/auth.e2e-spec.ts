@@ -1,7 +1,8 @@
-import { Sdk } from './gql/queries';
+import { Sdk, SocialProviders } from './gql/queries';
 import { createTestingApp } from './common/test-setup';
 import { usersMock } from './helpers/user';
 import { MESSAGES } from '@/modules/shared/constants';
+import { usersSocialMock } from './helpers/auth/users-social.mock';
 
 describe('RoleResolver (e2e)', () => {
     let session: Sdk;
@@ -52,6 +53,27 @@ describe('RoleResolver (e2e)', () => {
                 roleId: expect.any(Number),
                 roleName: expect.any(String),
             });
+        });
+
+        it(`loginSocial return Error ${MESSAGES.LOGIN_SOCIAL_NOT_ACCEPTABLE}`, async () => {
+            try {
+                await session.loginSocial({ input: { accessToken: '', provider: SocialProviders.Google } });
+            } catch ({ response }) {
+                response.errors.map((error) => {
+                    expect(error.message).toContain(MESSAGES.LOGIN_SOCIAL_NOT_ACCEPTABLE);
+                });
+            }
+        });
+
+        it(`loginSocial return Error ${MESSAGES.EMAIL_NOT_EXIST}`, async () => {
+            try {
+                const { input } = usersSocialMock[0];
+                await session.loginSocial({ input });
+            } catch ({ response }) {
+                response.errors.map((error) => {
+                    expect(error.message).toContain(MESSAGES.EMAIL_NOT_EXIST);
+                });
+            }
         });
     });
 });

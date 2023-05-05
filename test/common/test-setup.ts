@@ -18,6 +18,8 @@ import { Category } from '@/modules/category/entities';
 import { RoleRepository } from '@/modules/role/repositories';
 import { ProfileRepository, UserRepository } from '@/modules/user/repositories';
 import { CategoryRepository } from '@/modules/category/repositories';
+import { SocialAuthGuardMock } from '../helpers/auth/social-auth.guard-mock';
+import { SocialAuthGuard } from '@/modules/auth/guards';
 
 export const createTestingApp = async () => {
     const moduleFixture = await Test.createTestingModule({
@@ -53,6 +55,9 @@ export const createTestingApp = async () => {
         // overrideProvider LoginValidateGuard Auth Module
         .overrideGuard(LoginValidateGuard)
         .useClass(LoginValidateGuardMock)
+        // overrideProvider CustomAuthGuard Auth Module
+        .overrideGuard(SocialAuthGuard)
+        .useClass(SocialAuthGuardMock)
         .compile();
 
     const app = moduleFixture.createNestApplication();

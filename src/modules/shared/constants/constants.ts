@@ -3,6 +3,8 @@ export const MESSAGES = {
     USER_NOT_ACTIVE: `User is not active...`,
     INVALID_MOBILE: ` Invalid MobilePhone Number...`,
     EMAIL_EXIST: `Email already exists...`,
+    EMAIL_NOT_EXIST: `Email not register in system`,
     UNAUTORIZATED_USER: `You do not have authorization to access..`,
     CATEGORY_NAME_EXIST: `Category name already exists...`,
+    LOGIN_SOCIAL_NOT_ACCEPTABLE: `login Social not ACCEPTABLE...`,
 };
