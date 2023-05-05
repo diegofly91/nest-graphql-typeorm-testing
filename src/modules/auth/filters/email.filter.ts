@@ -15,7 +15,7 @@ export class MyExceptionsEmailFilter implements ExceptionFilter {
         if (!profile) {
             throw new HttpException(MESSAGES.LOGIN_SOCIAL_NOT_ACCEPTABLE, HttpStatus.NOT_ACCEPTABLE);
         }
-        const emails = profile.emails;
+        const { emails } = profile;
         const email = emails[0].value;
         const user = await this.userService.getUserByEmail(email);
         if (!user) {

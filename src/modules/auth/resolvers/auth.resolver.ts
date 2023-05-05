@@ -29,6 +29,7 @@ export class AuthResolver {
 
     @UseGuards(SocialAuthGuard)
     @UseFilters(MyExceptionsEmailFilter)
+    @UsePipes(new ValidationPipe())
     @Mutation(() => Boolean)
     async loginSocial(@Args('input') input: LoginSocialDto, @SocialProfile() { email }: Profile): Promise<IToken> {
         return await this.authService.payloadData(email);
@@ -36,6 +37,7 @@ export class AuthResolver {
 
     @UseGuards(SocialAuthGuard)
     @UseInterceptors(CreateUserSocialInterceptor)
+    @UsePipes(new ValidationPipe())
     @Mutation(() => Boolean)
     async registerSocial(
         @Args('input') input: RegisterSocialDto,

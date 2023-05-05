@@ -29,7 +29,7 @@ input LoginSocialDto {
 input RegisterSocialDto {
     accessToken: String!
     provider: SocialProviders!
-    roleType: RoleType
+    roleType: RoleType!
 }
 
 # input UpdatePasswordDto {

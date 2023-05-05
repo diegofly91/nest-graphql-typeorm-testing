@@ -22,12 +22,14 @@ export class UserRepositoryMock implements IUserRepository<IUser> {
     }
 
     createUser(dto: CreateUserDto): Promise<IUser> {
-        return Promise.resolve({
+        const newUser = {
             ...dto,
             id: usersMock.length + 1,
             createdAt: new Date().toDateString(),
             updatedAt: new Date().toDateString(),
-        });
+        };
+        usersMock.push({ ...newUser });
+        return Promise.resolve(newUser);
     }
 
     updateUserPassword(email: string, password: string): Promise<boolean> {
