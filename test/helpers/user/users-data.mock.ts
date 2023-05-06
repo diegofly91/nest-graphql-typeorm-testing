@@ -1,9 +1,9 @@
-import { IUser } from '@/modules/user/interfaces';
-import { Status } from '@/modules/shared/enums';
-export const usersMock: IUser[] = [
+import { User, Status } from '../../gql/queries';
+
+export const usersMock: User[] = [
     {
         id: 1,
-        status: Status.ACTIVE,
+        status: Status.Active,
         roleId: 1,
         email: 'diego@gmail.com',
         password: '12345678d',
@@ -12,7 +12,7 @@ export const usersMock: IUser[] = [
     },
     {
         id: 2,
-        status: Status.ACTIVE,
+        status: Status.Active,
         roleId: 2,
         email: 'andres@gmail.com',
         password: '123456786',
@@ -21,7 +21,7 @@ export const usersMock: IUser[] = [
     },
     {
         id: 3,
-        status: Status.PREACTIVE,
+        status: Status.Preactive,
         roleId: 3,
         email: 'andres2@gmail.com',
         password: '123456786',
@@ -30,7 +30,7 @@ export const usersMock: IUser[] = [
     },
     {
         id: 4,
-        status: Status.ACTIVE,
+        status: Status.Active,
         roleId: 4,
         email: 'andres3@gmail.com',
         password: '123456786',

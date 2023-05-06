@@ -10,9 +10,9 @@ type Category {
 
 input InputCategoryDto {
    name: String!
-   description: String
-   picture: String
    status: STATUS!
+   picture: String
+   description: String
 }
 
 type Query {

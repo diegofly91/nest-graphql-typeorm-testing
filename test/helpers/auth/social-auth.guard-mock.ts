@@ -4,7 +4,7 @@ import { defaultOptions } from '@nestjs/passport/dist/options';
 import { AuthModuleOptions } from '@nestjs/passport';
 import { usersSocialMock } from './users-social.mock';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { LoginSocialDto } from '@/modules/auth/dtos';
+import { LoginSocialDto } from '../../gql/queries';
 
 export class SocialAuthGuardMock extends SocialAuthGuard {
     constructor(@Optional() protected readonly options: AuthModuleOptions) {

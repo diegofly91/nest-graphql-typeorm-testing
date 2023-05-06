@@ -1,6 +1,6 @@
-import { IUserProfile } from '@/modules/user/interfaces';
+import { Profile } from '../../gql/queries';
 
-export const userProfilesMock: IUserProfile[] = [
+export const userProfilesMock: Profile[] = [
     {
         id: 1,
         userId: 1,

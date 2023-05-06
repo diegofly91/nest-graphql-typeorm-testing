@@ -1,8 +1,8 @@
 import { RegisterSocialDto, RoleType, Sdk, SocialProviders } from './gql/queries';
+import { usersSocialMock } from './helpers/auth/users-social.mock';
 import { createTestingApp } from './common/test-setup';
 import { usersMock } from './helpers/user';
 import { MESSAGES } from '@/modules/shared/constants';
-import { usersSocialMock } from './helpers/auth/users-social.mock';
 
 describe('RoleResolver (e2e)', () => {
     let session: Sdk;

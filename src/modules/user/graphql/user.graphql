@@ -2,11 +2,11 @@ type User {
     id: Int!
     email: String!
     password: String
-    status: STATUS
-    roleId: Int
+    status: STATUS!
+    roleId: Int!
     createdAt: Date
     updatedAt: Date
-    role: Role!
+    role: Role
     profile: Profile
     ##company: Company
 }
@@ -16,7 +16,7 @@ input CreateUserDto {
     email: String!
     roleId: Int!
     password: String!
-    status: STATUS
+    status: STATUS!
 }
 
 input SignUpPasswordDto {

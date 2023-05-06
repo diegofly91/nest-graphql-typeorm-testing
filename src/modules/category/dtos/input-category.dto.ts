@@ -10,12 +10,12 @@ export class InputCategoryDto {
     @MaxLength(150, { message: 'La descripcion es muy larga' })
     @IsString()
     @IsOptional()
-    description: string;
+    description?: string;
 
     @MaxLength(150)
     @IsString()
     @IsOptional()
-    picture: string;
+    picture?: string;
 
     @IsString()
     @IsNotEmpty()

@@ -1,27 +1,26 @@
+import { IUserRepository } from '@/modules/user/interfaces';
 import { usersMock } from './users-data.mock';
-import { IUser, IUserRepository } from '@/modules/user/interfaces';
-import { Status } from '@/modules/shared/enums';
-import { CreateUserDto } from '@/modules/user/dtos';
+import { User, Status, CreateUserDto } from '../../gql/queries';
 
-export class UserRepositoryMock implements IUserRepository<IUser> {
-    getUsers(): Promise<IUser[]> {
+export class UserRepositoryMock implements IUserRepository<User> {
+    getUsers(): Promise<User[]> {
         return Promise.resolve([...usersMock]);
     }
 
-    getUserById(id: number): Promise<IUser> {
+    getUserById(id: number): Promise<User> {
         return Promise.resolve(usersMock.find((user) => user.id === id));
     }
 
-    getUserByEmail(email: string): Promise<IUser> {
+    getUserByEmail(email: string): Promise<User> {
         const user = usersMock.find((user) => user.email === email);
         return Promise.resolve(user);
     }
 
-    getPasswordByEmail(email: string): Promise<IUser> {
+    getPasswordByEmail(email: string): Promise<User> {
         return Promise.resolve(usersMock.find((user) => user.email === email));
     }
 
-    createUser(dto: CreateUserDto): Promise<IUser> {
+    createUser(dto: CreateUserDto): Promise<User> {
         const newUser = {
             ...dto,
             id: usersMock.length + 1,
@@ -38,9 +37,9 @@ export class UserRepositoryMock implements IUserRepository<IUser> {
         return Promise.resolve(!!userUpdate);
     }
 
-    deleteUser(userId: number): Promise<IUser> {
+    deleteUser(userId: number): Promise<User> {
         const user = usersMock.find((user) => user.id === userId);
-        const userUpdate = Object.assign(user, { status: Status.DELETED });
+        const userUpdate = Object.assign(user, { status: Status.Deleted });
         return Promise.resolve(userUpdate);
     }
 }

@@ -70,9 +70,9 @@ type Category {
 
 input InputCategoryDto {
   name: String!
-  description: String
-  picture: String
   status: STATUS!
+  picture: String
+  description: String
 }
 
 type Role {
@@ -159,11 +159,11 @@ type User {
   id: Int!
   email: String!
   password: String
-  status: STATUS
-  roleId: Int
+  status: STATUS!
+  roleId: Int!
   createdAt: Date
   updatedAt: Date
-  role: Role!
+  role: Role
   profile: Profile
 }
 
@@ -171,7 +171,7 @@ input CreateUserDto {
   email: String!
   roleId: Int!
   password: String!
-  status: STATUS
+  status: STATUS!
 }
 
 input SignUpPasswordDto {

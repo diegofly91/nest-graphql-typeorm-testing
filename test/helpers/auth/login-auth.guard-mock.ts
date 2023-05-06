@@ -1,9 +1,8 @@
 import { LoginValidateGuard } from '@/modules/auth/guards';
 import { ExecutionContext, NotFoundException } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { LoginUserDto } from '@/modules/auth/dtos';
-import { Status } from '@/modules/shared/enums';
 import { MESSAGES } from '@/modules/shared/constants';
+import { Status, LoginUserDto } from '../../gql/queries';
 
 export class LoginValidateGuardMock extends LoginValidateGuard {
     async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -11,7 +10,7 @@ export class LoginValidateGuardMock extends LoginValidateGuard {
         const { email, password }: LoginUserDto = await ctx.getArgs().input;
         const user = await this.userService.getPasswordByEmail(email);
         if (!user || password !== user.password) throw new NotFoundException(MESSAGES.LOGIN_DATA_ERROR);
-        if (user.status !== Status.ACTIVE) throw new NotFoundException(MESSAGES.USER_NOT_ACTIVE);
+        if (user.status !== Status.Active) throw new NotFoundException(MESSAGES.USER_NOT_ACTIVE);
         return true;
     }
 }
