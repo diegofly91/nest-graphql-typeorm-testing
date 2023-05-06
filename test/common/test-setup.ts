@@ -1,8 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { UserProfileRepositoryMock, UserRepositoryMock } from '../helpers/user';
-import { RoleRepositoryMock } from '../helpers/role';
+import { LocalAuthGuardMock, SocialAuthGuardMock } from '../helpers/auth';
+import { LocalAuthGuard, SocialAuthGuard } from '@/modules/auth/guards';
 import { CategoryRepositoryMock } from '../helpers/category';
-import { LocalAuthGuardMock } from '../helpers/auth';
+import { RoleRepositoryMock } from '../helpers/role';
 import { UserModule } from '@/modules/user/user.module';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User, UserProfile } from '@/modules/user/entities';
@@ -11,15 +12,12 @@ import { SessionFactory } from './session-builder';
 import { GraphQL } from '../../src/configurations/graphql/graphql.module';
 import { ConfigModule } from '@nestjs/config';
 import { RoleModule } from '@/modules/role/role.module';
-import { LocalAuthGuard } from '@/modules/auth/guards';
 import { AuthModule } from '@/modules/auth/auth.module';
 import { CategoryModule } from '@/modules/category/category.module';
 import { Category } from '@/modules/category/entities';
 import { RoleRepository } from '@/modules/role/repositories';
 import { ProfileRepository, UserRepository } from '@/modules/user/repositories';
 import { CategoryRepository } from '@/modules/category/repositories';
-import { SocialAuthGuardMock } from '../helpers/auth/social-auth.guard-mock';
-import { SocialAuthGuard } from '@/modules/auth/guards';
 
 export const createTestingApp = async () => {
     const moduleFixture = await Test.createTestingModule({
