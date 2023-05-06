@@ -1,10 +1,10 @@
-import { LoginValidateGuard } from '@/modules/auth/guards';
+import { LocalAuthGuard } from '@/modules/auth/guards';
 import { ExecutionContext, NotFoundException } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { MESSAGES } from '@/modules/shared/constants';
 import { Status, LoginUserDto } from '../../gql/queries';
 
-export class LoginValidateGuardMock extends LoginValidateGuard {
+export class LocalAuthGuardMock extends LocalAuthGuard {
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const ctx = GqlExecutionContext.create(context);
         const { email, password }: LoginUserDto = await ctx.getArgs().input;

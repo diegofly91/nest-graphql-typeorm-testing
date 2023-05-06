@@ -2,7 +2,7 @@ import { Test } from '@nestjs/testing';
 import { UserProfileRepositoryMock, UserRepositoryMock } from '../helpers/user';
 import { RoleRepositoryMock } from '../helpers/role';
 import { CategoryRepositoryMock } from '../helpers/category';
-import { LoginValidateGuardMock } from '../helpers/auth';
+import { LocalAuthGuardMock } from '../helpers/auth';
 import { UserModule } from '@/modules/user/user.module';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User, UserProfile } from '@/modules/user/entities';
@@ -11,7 +11,7 @@ import { SessionFactory } from './session-builder';
 import { GraphQL } from '../../src/configurations/graphql/graphql.module';
 import { ConfigModule } from '@nestjs/config';
 import { RoleModule } from '@/modules/role/role.module';
-import { LoginValidateGuard } from '@/modules/auth/guards';
+import { LocalAuthGuard } from '@/modules/auth/guards';
 import { AuthModule } from '@/modules/auth/auth.module';
 import { CategoryModule } from '@/modules/category/category.module';
 import { Category } from '@/modules/category/entities';
@@ -52,9 +52,9 @@ export const createTestingApp = async () => {
         .useClass(Category)
         .overrideProvider(CategoryRepository)
         .useClass(CategoryRepositoryMock)
-        // overrideProvider LoginValidateGuard Auth Module
-        .overrideGuard(LoginValidateGuard)
-        .useClass(LoginValidateGuardMock)
+        // overrideProvider LocalAuthGuard Auth Module
+        .overrideGuard(LocalAuthGuard)
+        .useClass(LocalAuthGuardMock)
         // overrideProvider CustomAuthGuard Auth Module
         .overrideGuard(SocialAuthGuard)
         .useClass(SocialAuthGuardMock)

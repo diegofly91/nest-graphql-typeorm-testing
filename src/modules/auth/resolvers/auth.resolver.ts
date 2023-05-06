@@ -3,7 +3,7 @@ import { Args, Mutation, Resolver, Query, Context } from '@nestjs/graphql';
 import { AuthService } from '../services';
 import { LoginUserDto, LoginSocialDto, RegisterSocialDto } from '../dtos';
 import { User } from '@/modules/user/entities';
-import { AuthGuard, LoginValidateGuard, SocialAuthGuard } from '../guards';
+import { AuthGuard, LocalAuthGuard, SocialAuthGuard } from '../guards';
 import { IToken, IUserPayload } from '../interfaces';
 import { SocialProfile } from '../decorators';
 import { Profile } from 'passport';
@@ -20,7 +20,7 @@ export class AuthResolver {
         return user;
     }
 
-    @UseGuards(LoginValidateGuard)
+    @UseGuards(LocalAuthGuard)
     @UsePipes(new ValidationPipe())
     @Mutation(() => User)
     async loginUser(@Args('input') { email }: LoginUserDto): Promise<IToken> {

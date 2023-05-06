@@ -7,7 +7,7 @@ import { Status } from '@/modules/shared/enums';
 import { MESSAGES } from '@/modules/shared/constants';
 
 @Injectable()
-export class LoginValidateGuard implements CanActivate {
+export class LocalAuthGuard implements CanActivate {
     constructor(public readonly userService: UserService) {}
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const ctx = GqlExecutionContext.create(context);
