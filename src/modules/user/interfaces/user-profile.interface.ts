@@ -1,7 +1,11 @@
-export interface IUserProfile {
+export interface IProfile {
     readonly id: number;
 
     readonly userId: number;
+
+    readonly documentTypeId?: number;
+
+    readonly document?: string;
 
     readonly firstname?: string;
 

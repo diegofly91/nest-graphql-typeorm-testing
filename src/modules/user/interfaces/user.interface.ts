@@ -1,4 +1,4 @@
-import { IUserProfile } from './user-profile.interface';
+import { IProfile } from './user-profile.interface';
 import { IRole } from '@/modules/role/interfaces';
 import { Status } from '@/modules/shared/enums';
 
@@ -20,7 +20,7 @@ export interface IUser {
 
     readonly updatedAt?: string;
 
-    profile?: IUserProfile;
+    profile?: IProfile;
 
     role?: IRole;
 }

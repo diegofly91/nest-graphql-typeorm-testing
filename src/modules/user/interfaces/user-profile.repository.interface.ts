@@ -1,7 +1,7 @@
 import { InputProfileUserDto } from '../dtos';
 
-export interface IProfileRepository<IUserProfile> {
-    getProfileUserById(userId: number): Promise<IUserProfile>;
-    createProfileUser(userId: number, dto: InputProfileUserDto): Promise<IUserProfile>;
-    updateProfileUser(userId: number, dto: InputProfileUserDto): Promise<IUserProfile>;
+export interface IProfileRepository<IProfile> {
+    getProfileUserById(userId: number): Promise<IProfile>;
+    createProfileUser(userId: number, dto: InputProfileUserDto): Promise<IProfile>;
+    updateProfileUser(userId: number, dto: InputProfileUserDto): Promise<IProfile>;
 }

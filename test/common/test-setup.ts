@@ -1,12 +1,12 @@
 import { Test } from '@nestjs/testing';
-import { UserProfileRepositoryMock, UserRepositoryMock } from '../helpers/user';
+import { ProfileRepositoryMock, UserRepositoryMock } from '../helpers/user';
 import { LocalAuthGuardMock, SocialAuthGuardMock } from '../helpers/auth';
 import { LocalAuthGuard, SocialAuthGuard } from '@/modules/auth/guards';
 import { CategoryRepositoryMock } from '../helpers/category';
 import { RoleRepositoryMock } from '../helpers/role';
 import { UserModule } from '@/modules/user/user.module';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { User, UserProfile } from '@/modules/user/entities';
+import { User, Profile } from '@/modules/user/entities';
 import { Role } from '@/modules/role/entities/role.entity';
 import { SessionFactory } from './session-builder';
 import { GraphQL } from '../../src/configurations/graphql/graphql.module';
@@ -35,11 +35,11 @@ export const createTestingApp = async () => {
         .useClass(User)
         .overrideProvider(UserRepository)
         .useClass(UserRepositoryMock)
-        // overrideProvider UserProfile
-        .overrideProvider(getRepositoryToken(UserProfile))
-        .useClass(UserProfile)
+        // overrideProvider Profile
+        .overrideProvider(getRepositoryToken(Profile))
+        .useClass(Profile)
         .overrideProvider(ProfileRepository)
-        .useClass(UserProfileRepositoryMock)
+        .useClass(ProfileRepositoryMock)
         // overrirdeProvider Role
         .overrideProvider(getRepositoryToken(Role))
         .useClass(Role)

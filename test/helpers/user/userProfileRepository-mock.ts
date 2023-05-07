@@ -2,7 +2,7 @@ import { IProfileRepository } from '@/modules/user/interfaces';
 import { userProfilesMock } from './userProfile.mock';
 import { Profile, InputProfileUserDto } from '../../gql/queries';
 
-export class UserProfileRepositoryMock implements IProfileRepository<Profile> {
+export class ProfileRepositoryMock implements IProfileRepository<Profile> {
     async getProfileUserById(userId: number): Promise<Profile> {
         return Promise.resolve(userProfilesMock.find((profile) => profile.userId === userId));
     }

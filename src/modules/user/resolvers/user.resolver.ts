@@ -1,7 +1,7 @@
 import { UsePipes, ValidationPipe, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Context, ResolveField, Parent } from '@nestjs/graphql';
 import { CreateUserDto, InputProfileUserDto, SignUpPasswordDto, InputProfileUserAdviserDto } from '../dtos';
-import { User, UserProfile } from '../entities';
+import { User, Profile } from '../entities';
 import { Role } from '@/modules/role/entities';
 import { RoleService } from '@/modules/role/services';
 import { RoleType } from '@/modules/role/enums';
@@ -9,7 +9,7 @@ import { UserService, ProfileService } from '../services';
 import { RolesGuard } from '@/modules/auth/guards';
 import { Roles } from '@/modules/role/decorators';
 import { AuthGuard } from '@/modules/auth/guards/';
-import { UserProfileInterceptor, UserProfileAdviserInterceptor } from '../interceptors';
+import { ProfileInterceptor, ProfileAdviserInterceptor } from '../interceptors';
 import { UserCreateGuard } from '../guards';
 import { IUserPayload } from '@/modules/auth/interfaces';
 
@@ -41,7 +41,7 @@ export class UserResolver {
     }
 
     @UseGuards(UserCreateGuard)
-    @UseInterceptors(UserProfileInterceptor)
+    @UseInterceptors(ProfileInterceptor)
     @UsePipes(new ValidationPipe())
     @Mutation(() => User, { nullable: true })
     public async createUser(
@@ -53,7 +53,7 @@ export class UserResolver {
     }
 
     @UseGuards(UserCreateGuard)
-    @UseInterceptors(UserProfileAdviserInterceptor)
+    @UseInterceptors(ProfileAdviserInterceptor)
     @UsePipes(new ValidationPipe())
     @Mutation(() => User, { nullable: true })
     public async createUserAdviser(
@@ -87,7 +87,7 @@ export class UserResolver {
         return await this.roleService.getRoleById(roleId);
     }
 
-    @ResolveField('profile', () => UserProfile)
+    @ResolveField('profile', () => Profile)
     async profile(@Parent() user) {
         const { id } = user;
         return await this.profileService.getProfileUserById(id);

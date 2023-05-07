@@ -7,7 +7,7 @@ import { ProfileService } from '../services';
 import { InputProfileUserDto } from '../dtos';
 
 @Injectable()
-export class UserProfileInterceptor implements NestInterceptor {
+export class ProfileInterceptor implements NestInterceptor {
     constructor(public readonly profileService: ProfileService) {}
 
     async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {

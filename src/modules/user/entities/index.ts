@@ -1,2 +1,3 @@
 export * from './user.entity';
-export * from './user-profile.entity';
+export * from './profile.entity';
+export * from './document-type.entity';

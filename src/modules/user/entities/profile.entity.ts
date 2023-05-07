@@ -6,12 +6,14 @@ import {
     OneToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
+    ManyToOne,
 } from 'typeorm';
 import { User } from './user.entity';
-import { IUserProfile } from '../interfaces';
+import { IProfile } from '../interfaces';
+import { DocumentType } from './document-type.entity';
 
 @Entity({ name: 'user_profiles' })
-export class UserProfile implements IUserProfile {
+export class Profile implements IProfile {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
@@ -21,6 +23,16 @@ export class UserProfile implements IUserProfile {
     @OneToOne(() => User)
     @JoinColumn({ name: 'user_id' })
     user: User;
+
+    @Column({ type: 'varchar', length: 20, nullable: true, default: '' })
+    document: string;
+
+    @Column({ type: 'int', name: 'document_type_id', nullable: true })
+    documentTypeId?: number;
+
+    @ManyToOne(() => DocumentType)
+    @JoinColumn({ name: 'document_type_id' })
+    documentType: DocumentType;
 
     @Column({ type: 'varchar', nullable: true, default: '', length: 60 })
     firstname: string;

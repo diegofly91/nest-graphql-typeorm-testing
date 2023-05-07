@@ -179,7 +179,7 @@ describe('UserResolver (e2e)', () => {
             });
         });
 
-        it('UpdateUserProfile return sucess', async () => {
+        it('UpdateProfile return sucess', async () => {
             const { getUserData } = await session.getUserData({}, { Authorization: access_token });
             const { id, profile } = getUserData;
             const input: InputProfileUserDto = {

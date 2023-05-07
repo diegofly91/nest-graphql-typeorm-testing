@@ -1,6 +1,8 @@
 type Profile {
     id: Int!
     userId: Int!
+    document: String
+    documentTypeId: Int
     firstname: String
     lastname: String
     address: String

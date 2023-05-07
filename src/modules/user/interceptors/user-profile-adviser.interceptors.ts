@@ -10,7 +10,7 @@ import { RoleType } from '@/modules/role/enums';
 import { Role } from '@/modules/role/entities';
 
 @Injectable()
-export class UserProfileAdviserInterceptor implements NestInterceptor {
+export class ProfileAdviserInterceptor implements NestInterceptor {
     constructor(public readonly profileService: ProfileService, public readonly roleService: RoleService) {}
 
     async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
