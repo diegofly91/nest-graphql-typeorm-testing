@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { InputProfileUserDto, CreateUserDto } from '@/modules/user/dtos';
+import { InputProfileUserDto, CreateUserDto, InputDocumentType } from '@/modules/user/dtos';
 import { RoleService } from '@/modules/role/services';
-import { ProfileService, UserService } from '@/modules/user/services';
-import { rolesSeed, usersSeed } from '../data';
+import { ProfileService, UserService, DocumentTypeService } from '@/modules/user/services';
+import { docTypesSeed, rolesSeed, usersSeed } from '../data';
 import { RoleType } from '@/modules/role/enums';
 import { CreateRoleDto } from '@/modules/role/dtos';
 import { User } from '@/modules/user/entities';
@@ -13,6 +13,7 @@ export class SeederService {
     constructor(
         private readonly profileUserService: ProfileService,
         private readonly userService: UserService,
+        private readonly docTypeService: DocumentTypeService,
         private readonly roleService: RoleService,
         private readonly logger: Logger,
     ) {
@@ -22,7 +23,23 @@ export class SeederService {
     async seed() {
         await this.createRoles();
         await this.createUsers();
+        await this.createDocTypes();
         return this.logger.debug('Successfuly completed seeding...');
+    }
+
+    async createDocTypes() {
+        const docTypes = await this.docTypeService.getDocumentTypesAll();
+        const createDocTypes: InputDocumentType[] = docTypesSeed
+            .filter((item) => {
+                if (docTypes.find((docType) => docType.name === item.name)) return null;
+                if (docTypes.find((docType) => docType.abbreviation === item.abbreviation)) return null;
+                return item;
+            })
+            .filter((item) => item !== null);
+        createDocTypes.map(async (item) => {
+            await this.docTypeService.createDocumentType(item);
+        });
+        return this.logger.debug('Successfuly completed seeding docTypes...');
     }
 
     async createRoles() {
