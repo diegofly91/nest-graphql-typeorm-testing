@@ -26,7 +26,7 @@ export class SocialAuthGuardMock extends SocialAuthGuard {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const options = { ...defaultOptions, ...this.options };
-        const [request, response] = [this.getRequest(context), context.switchToHttp().getResponse()];
+        const [request] = [this.getRequest(context), context.switchToHttp().getResponse()];
         //const passportFn = createPassportContext(request, response);
         const user = usersSocialMock.find(
             (userS) =>

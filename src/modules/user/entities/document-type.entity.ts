@@ -9,6 +9,9 @@ export class DocumentType implements IDocumentType {
     @Column({ type: 'varchar', length: 50, unique: true })
     name: string;
 
+    @Column({ type: 'varchar', length: 10, unique: true })
+    abbreviation: string;
+
     @Column({ type: 'varchar', nullable: true, length: 240, default: '' })
     description: string;
 

@@ -20,8 +20,12 @@ export class DocumentTypeService {
         return await this.docTypeRepository.getDocumentTypeById(id);
     }
 
-    async getDocumentTypeBypProfileId(profileId: number): Promise<DocumentType> {
-        return await this.docTypeRepository.getDocumentTypeBypProfileId(profileId);
+    async getDocumentTypeByName(name: string): Promise<DocumentType> {
+        return await this.docTypeRepository.getDocumentTypeByName(name);
+    }
+
+    async getDocumentTypeByAbbreviation(abbreviation: string): Promise<DocumentType> {
+        return await this.docTypeRepository.getDocumentTypeByAbbreviation(abbreviation);
     }
 
     async createDocumentType(dto: InputDocumentType): Promise<DocumentType> {

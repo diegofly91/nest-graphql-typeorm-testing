@@ -2,15 +2,20 @@ import { IsNotEmpty, IsOptional, IsString, IsBoolean, MaxLength, MinLength } fro
 import { IDocumentType } from '../interfaces';
 
 export class InputDocumentType implements Partial<IDocumentType> {
-    @MinLength(5, { message: 'El nombre es muy corto' })
+    @MinLength(3, { message: 'El nombre es muy corto' })
     @MaxLength(50, { message: 'El nombre es muy largo' })
     @IsNotEmpty()
     @IsString()
     name: string;
 
+    @MinLength(1, { message: 'La descripcion es muy corta' })
+    @IsString()
+    @IsNotEmpty()
+    abbreviation: string;
+
     @MaxLength(150, { message: 'La descripcion es muy larga' })
     @IsOptional()
-    description: string;
+    description?: string;
 
     @IsBoolean()
     @IsOptional()

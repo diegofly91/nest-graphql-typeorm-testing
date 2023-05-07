@@ -137,6 +137,7 @@ scalar VideoFile
 type DocumentType {
   id: Int!
   name: String!
+  abbreviation: String!
   description: String
   isActive: Boolean
   deleted: Boolean!
@@ -147,6 +148,7 @@ type DocumentType {
 
 input InputDocumentType {
   name: String!
+  abbreviation: String!
   description: String
   isActive: Boolean!
   required: Boolean!
@@ -167,6 +169,8 @@ type Profile {
 }
 
 input InputProfileUserDto {
+  documentTypeId: Int
+  document: String
   firstname: String
   lastname: String
   address: String
@@ -175,6 +179,8 @@ input InputProfileUserDto {
 }
 
 input InputProfileUserAdviserDto {
+  documentTypeId: Int!
+  document: String!
   firstname: String!
   lastname: String
   address: String!

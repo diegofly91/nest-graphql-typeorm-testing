@@ -1,12 +1,12 @@
 import { Test } from '@nestjs/testing';
-import { ProfileRepositoryMock, UserRepositoryMock } from '../helpers/user';
+import { ProfileRepositoryMock, UserRepositoryMock, DocumentTypeRepositoryMock } from '../helpers/user';
 import { LocalAuthGuardMock, SocialAuthGuardMock } from '../helpers/auth';
 import { LocalAuthGuard, SocialAuthGuard } from '@/modules/auth/guards';
 import { CategoryRepositoryMock } from '../helpers/category';
 import { RoleRepositoryMock } from '../helpers/role';
 import { UserModule } from '@/modules/user/user.module';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { User, Profile } from '@/modules/user/entities';
+import { User, Profile, DocumentType } from '@/modules/user/entities';
 import { Role } from '@/modules/role/entities/role.entity';
 import { SessionFactory } from './session-builder';
 import { GraphQL } from '../../src/configurations/graphql/graphql.module';
@@ -16,7 +16,7 @@ import { AuthModule } from '@/modules/auth/auth.module';
 import { CategoryModule } from '@/modules/category/category.module';
 import { Category } from '@/modules/category/entities';
 import { RoleRepository } from '@/modules/role/repositories';
-import { ProfileRepository, UserRepository } from '@/modules/user/repositories';
+import { DocumentTypeRepository, ProfileRepository, UserRepository } from '@/modules/user/repositories';
 import { CategoryRepository } from '@/modules/category/repositories';
 
 export const createTestingApp = async () => {
@@ -40,6 +40,11 @@ export const createTestingApp = async () => {
         .useClass(Profile)
         .overrideProvider(ProfileRepository)
         .useClass(ProfileRepositoryMock)
+        // overrideProvider DocumentType
+        .overrideProvider(getRepositoryToken(DocumentType))
+        .useClass(DocumentType)
+        .overrideProvider(DocumentTypeRepository)
+        .useClass(DocumentTypeRepositoryMock)
         // overrirdeProvider Role
         .overrideProvider(getRepositoryToken(Role))
         .useClass(Role)

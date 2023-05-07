@@ -18,6 +18,8 @@ export const usersSeed: {
         profileDto: {
             firstname: 'Diego',
             lastname: 'Libreros',
+            document: '',
+            documentTypeId: null,
             phone: '809-555-5555',
             city: 'Santo Domingo',
             address: 'Calle 1, Santo Domingo, República Dominicana',

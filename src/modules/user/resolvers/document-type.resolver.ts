@@ -7,6 +7,7 @@ import { RolesGuard } from '../../auth/guards/';
 import { RoleType } from '@/modules/role/enums';
 import { Roles } from '@/modules/role/decorators';
 import { OptionDto } from '@/modules/shared/dtos';
+import { CreateDocTypeGuard, UpdateDocTypeGuard } from '../guards';
 
 @UseGuards(RolesGuard)
 @Resolver(() => DocumentType)
@@ -20,8 +21,8 @@ export class DocumentTypeResolver {
 
     @UsePipes(new ValidationPipe())
     @Query(() => [DocumentType])
-    public async getDocumentTypes(@Args('input') option?: OptionDto): Promise<DocumentType[]> {
-        return this.serviceDocType.getDocumentTypes(option);
+    public async getDocumentTypes(@Args('input') input?: OptionDto): Promise<DocumentType[]> {
+        return this.serviceDocType.getDocumentTypes(input);
     }
 
     @Roles(RoleType.SUPERUSER, RoleType.ADMIN)
@@ -31,6 +32,7 @@ export class DocumentTypeResolver {
     }
 
     @Roles(RoleType.SUPERUSER)
+    @UseGuards(CreateDocTypeGuard)
     @UsePipes(new ValidationPipe())
     @Mutation(() => DocumentType, { nullable: true })
     public async createDocumentType(@Args('input') input: InputDocumentType): Promise<DocumentType> {
@@ -45,6 +47,7 @@ export class DocumentTypeResolver {
     }
 
     @Roles(RoleType.SUPERUSER)
+    @UseGuards(UpdateDocTypeGuard)
     @UsePipes(new ValidationPipe())
     @Mutation(() => DocumentType)
     public async updateDocumentType(

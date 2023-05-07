@@ -47,6 +47,8 @@ export class CreateUserSocialInterceptor implements NestInterceptor {
             lastname: userSocial.lastName,
             city: '',
             address: '',
+            documentTypeId: null,
+            document: '',
         };
         await this.profileService.createProfileUser(userCreated.id, profileDto);
         return next.handle().pipe(tap());

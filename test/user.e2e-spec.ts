@@ -6,7 +6,7 @@ import {
     SignUpPasswordDto,
     InputProfileUserAdviserDto,
 } from './gql/queries';
-import { usersMock } from './helpers/user';
+import { docTypeMock, usersMock } from './helpers/user';
 import { createTestingApp } from './common/test-setup';
 import { MESSAGES } from '@/modules/shared/constants';
 
@@ -130,9 +130,12 @@ describe('UserResolver (e2e)', () => {
     describe('UserResolver Mutation Success (e2e)', () => {
         it('createUserAdviser return User', async () => {
             const { input } = newUser;
+            const dockType = docTypeMock.find((doc) => doc.id === 1);
             const inputProfile: InputProfileUserAdviserDto = {
                 address: 'Calle 123',
                 city: 'Medellin',
+                documentTypeId: dockType.id,
+                document: '1.118.549.876',
                 phone: '3204426066',
                 firstname: 'John',
                 lastname: 'Doe',
@@ -180,11 +183,14 @@ describe('UserResolver (e2e)', () => {
         });
 
         it('UpdateProfile return sucess', async () => {
+            const dockType = docTypeMock.find((doc) => doc.id === 1);
             const { getUserData } = await session.getUserData({}, { Authorization: access_token });
             const { id, profile } = getUserData;
             const input: InputProfileUserDto = {
                 firstname: 'Diego',
                 address: 'Calle 123',
+                documentTypeId: dockType.id,
+                document: '1.118.549.876',
                 lastname: 'Libreros',
                 phone: '3204426065',
                 city: 'Villavicencio',

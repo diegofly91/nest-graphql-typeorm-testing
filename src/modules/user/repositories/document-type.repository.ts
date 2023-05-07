@@ -39,11 +39,17 @@ export class DocumentTypeRepository extends Repository<DocumentType> implements 
             .getOne();
     }
 
-    async getDocumentTypeBypProfileId(profileId: number): Promise<DocumentType> {
+    async getDocumentTypeByName(name: string): Promise<DocumentType> {
         return await this.documentTypeRepository
             .createQueryBuilder('docType')
-            .innerJoinAndSelect('user_profiles', 'profile', 'profile.document_type_id = docType.id')
-            .where('profile.id = :customerId ', { profileId })
+            .where('LOWER(docType.name) = :name ', { name: name.toLowerCase() })
+            .getOne();
+    }
+
+    async getDocumentTypeByAbbreviation(abbreviation: string): Promise<DocumentType> {
+        return await this.documentTypeRepository
+            .createQueryBuilder('docType')
+            .where('LOWER(docType.abbreviation) = :abbreviation ', { abbreviation: abbreviation.toLowerCase() })
             .getOne();
     }
 
@@ -56,7 +62,7 @@ export class DocumentTypeRepository extends Repository<DocumentType> implements 
             .into(DocumentType)
             .values(newDocumentType)
             .execute();
-        return raw;
+        return raw[0];
     }
 
     async activeDocumentType(id: number, isActive: boolean): Promise<boolean> {
