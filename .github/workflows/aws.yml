@@ -22,9 +22,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - run: npm install
-      - run: npm run test:e2e
-      - run: npm run build
-
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1.3
         with:
@@ -50,6 +47,9 @@ jobs:
            directory: dist
            file_name: .env
            fail_on_empty: false
+      - run: npm run test:e2e
+      - run: npm run build
+
 
       - name: rsync deployments
         uses: burnett01/rsync-deployments@5.1
