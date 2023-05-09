@@ -22,31 +22,29 @@ jobs:
       - uses: actions/checkout@v2
 
       - run: npm install
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-           envkey_APP_NAME: ${{ secrets.APP_NAME }}
-           envkey_PORT: ${{ secrets.PORT }}
-           envkey_DB_TYPE: ${{ secrets.DB_TYPE }}
-           envkey_DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
-           envkey_DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
-           envkey_DATABASE_USER: ${{ secrets.DATABASE_USER }}
-           envkey_DATABASE_PASS: ${{ secrets.DATABASE_PASS }}
-           envkey_DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
-           envkey_DATABASE_MIGRATIONS_DIR: ${{ secrets.DATABASE_MIGRATIONS_DIR }}
-           envkey_DATABASE_TIMEZONE: ${{ secrets.DATABASE_TIMEZONE }}
-           envkey_DATABASE_AUTOLOADENTITIES: ${{ secrets.DATABASE_AUTOLOADENTITIES }}
-           envkey_DATABASE_PGTZ: ${{ secrets.DATABASE_PGTZ }}
-           envkey_DB_TIMEOUT: ${{ secrets.DB_TIMEOUT }}
-           envkey_GRAPHQL_DEGUB: ${{ secrets.GRAPHQL_DEGUB }}
-           envkey_JWT_SECRET: ${{ secrets.JWT_SECRET }}
-           envkey_GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID }}
-           envkey_GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-           envkey_FACEBOOK_CLIENT_ID: ${{ secrets.FACEBOOK_CLIENT_ID }}
-           envkey_FACEBOOK_CLIENT_SECRET: ${{ secrets.FACEBOOK_CLIENT_SECRET }}
-           directory: dist
-           file_name: .env
-           fail_on_empty: false
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo APP_NAME= ${{ secrets.APP_NAME }} >> .env
+          echo PORT= ${{ secrets.PORT }} >> .env
+          echo DB_TYPE= ${{ secrets.DB_TYPE }} >> .env
+          echo DATABASE_HOST= ${{ secrets.DATABASE_HOST }} >> .env
+          echo DATABASE_PORT= ${{ secrets.DATABASE_PORT }} >> .env
+          echo DATABASE_USER= ${{ secrets.DATABASE_USER }} >> .env
+          echo DATABASE_PASS= ${{ secrets.DATABASE_PASS }} >> .env
+          echo DATABASE_NAME= ${{ secrets.DATABASE_NAME }} >> .env
+          echo DATABASE_MIGRATIONS_DIR= ${{ secrets.DATABASE_MIGRATIONS_DIR }} >> .env
+          echo DATABASE_TIMEZONE= ${{ secrets.DATABASE_TIMEZONE }}
+          echo DATABASE_AUTOLOADENTITIES= ${{ secrets.DATABASE_AUTOLOADENTITIES }} >> .env
+          echo DATABASE_PGTZ= ${{ secrets.DATABASE_PGTZ }} >> .env
+          echo DB_TIMEOUT= ${{ secrets.DB_TIMEOUT }} >> .env
+          echo GRAPHQL_DEGUB= ${{ secrets.GRAPHQL_DEGUB }} >> .env
+          echo JWT_SECRET= ${{ secrets.JWT_SECRET }} >> .env
+          echo GOOGLE_CLIENT_ID= ${{secrets.GOOGLE_CLIENT_ID }} >> .env
+          echo GOOGLE_CLIENT_SECRET= ${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
+          echo FACEBOOK_CLIENT_ID= ${{ secrets.FACEBOOK_CLIENT_ID }} >> .env
+          echo FACEBOOK_CLIENT_SECRET= ${{ secrets.FACEBOOK_CLIENT_SECRET }} >> .env
+
       - run: npm run test:e2e
       - run: npm run build
 
