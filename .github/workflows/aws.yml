@@ -19,9 +19,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
       - run: npm install
-      - run: echo PORT ${{ secrets.DATABASE_PORT }} 
       - name: 'Create env file'
         run: |
           echo APP_NAME= ${{ secrets.APP_NAME }} > .env
@@ -43,9 +41,8 @@ jobs:
           echo GOOGLE_CLIENT_SECRET= ${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
           echo FACEBOOK_CLIENT_ID= ${{ secrets.FACEBOOK_CLIENT_ID }} >> .env
           echo FACEBOOK_CLIENT_SECRET= ${{ secrets.FACEBOOK_CLIENT_SECRET }} >> .env
-
-      - run: npm run test:e2e
       - run: npm run build
+      - run: npm run test:e2e
 
 
       - name: rsync deployments
