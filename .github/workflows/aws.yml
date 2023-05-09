@@ -19,7 +19,7 @@ jobs:
         node-version: [18.x]
 
     steps:
-      - uses: action/checkout@v2
+      - uses: actions/checkout@v2
 
       - run: npm install
       - run: npm run test:e2e
@@ -50,7 +50,7 @@ jobs:
            directory: dist
            file_name: .env
            fail_on_empty: false
-           
+
       - name: rsync deployments
         uses: burnett01/rsync-deployments@5.1
         with:
