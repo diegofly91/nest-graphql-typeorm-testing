@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - run: npm install
-      - run: echo PORT ${{ vars.DATABASE_PORT }} 
+      - run: echo PORT ${{ secrets.DATABASE_PORT }} 
       - name: 'Create env file'
         run: |
           echo APP_NAME= ${{ secrets.APP_NAME }} > .env
