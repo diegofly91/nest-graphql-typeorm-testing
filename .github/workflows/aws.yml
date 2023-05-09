@@ -31,7 +31,7 @@ jobs:
           echo DATABASE_PASS= ${{ secrets.DATABASE_PASS }} >> .env
           echo DATABASE_NAME= ${{ vars.DATABASE_NAME }} >> .env
           echo DATABASE_MIGRATIONS_DIR= ${{ vars.DATABASE_MIGRATIONS_DIR }} >> .env
-          echo DATABASE_TIMEZONE= ${{ vars.DATABASE_TIMEZONE }}
+          echo DATABASE_TIMEZONE= ${{ vars.DATABASE_TIMEZONE }} >> .env
           echo DATABASE_AUTOLOADENTITIES= ${{ vars.DATABASE_AUTOLOADENTITIES }} >> .env
           echo DATABASE_PGTZ= ${{ vars.DATABASE_PGTZ }} >> .env
           echo DB_TIMEOUT= ${{ vars.DB_TIMEOUT }} >> .env
