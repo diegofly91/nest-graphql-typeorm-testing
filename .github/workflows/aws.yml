@@ -19,10 +19,28 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm install
-      - name: 'Create env file'
-        run: |
-          echo ${{ secrets.ENV_FILE_PRD }} > .env
-          cat .env
+      - run: echo PORT ${{ vars.DATABASE_PORT }} 
+      # - name: 'Create env file'
+      #   run: |
+      #     echo APP_NAME= ${{ secrets.APP_NAME }} > .env
+      #     echo PORT= ${{ secrets.PORT }} >> .env
+      #     echo DB_TYPE= ${{ secrets.DB_TYPE }} >> .env
+      #     echo DATABASE_HOST= ${{ secrets.DATABASE_HOST }} >> .env
+      #     echo DATABASE_PORT= ${{ secrets.DATABASE_PORT }} >> .env
+      #     echo DATABASE_USER= ${{ secrets.DATABASE_USER }} >> .env
+      #     echo DATABASE_PASS= ${{ secrets.DATABASE_PASS }} >> .env
+      #     echo DATABASE_NAME= ${{ secrets.DATABASE_NAME }} >> .env
+      #     echo DATABASE_MIGRATIONS_DIR= ${{ secrets.DATABASE_MIGRATIONS_DIR }} >> .env
+      #     echo DATABASE_TIMEZONE= ${{ secrets.DATABASE_TIMEZONE }}
+      #     echo DATABASE_AUTOLOADENTITIES= ${{ secrets.DATABASE_AUTOLOADENTITIES }} >> .env
+      #     echo DATABASE_PGTZ= ${{ secrets.DATABASE_PGTZ }} >> .env
+      #     echo DB_TIMEOUT= ${{ secrets.DB_TIMEOUT }} >> .env
+      #     echo GRAPHQL_DEGUB= ${{ secrets.GRAPHQL_DEGUB }} >> .env
+      #     echo JWT_SECRET= ${{ secrets.JWT_SECRET }} >> .env
+      #     echo GOOGLE_CLIENT_ID= ${{secrets.GOOGLE_CLIENT_ID }} >> .env
+      #     echo GOOGLE_CLIENT_SECRET= ${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
+      #     echo FACEBOOK_CLIENT_ID= ${{ secrets.FACEBOOK_CLIENT_ID }} >> .env
+      #     echo FACEBOOK_CLIENT_SECRET= ${{ secrets.FACEBOOK_CLIENT_SECRET }} >> .env
       - run: npm run build
       - run: npm run test:e2e
 
