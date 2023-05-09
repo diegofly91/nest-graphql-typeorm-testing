@@ -20,10 +20,8 @@ jobs:
       - uses: actions/checkout@v2
       - run: npm install
       - name: 'Create env file'
-        env:
-          PROD_ENV_FILE: ${{ secrets.ENV_FILE_PRD }}
         run: |
-          echo $PROD_ENV_FILE | base64 --decode > .env
+          echo ${{ secrets.ENV_FILE_PRD }} > .env
           cat .env
       - run: npm run build
       - run: npm run test:e2e
