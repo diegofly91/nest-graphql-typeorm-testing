@@ -21,7 +21,7 @@ jobs:
       - run: npm install
       - name: 'Create env file'
         run: |
-          echo "${{ secrets.API_ENV_PRD }}" > .env
+          echo "${{ secrets.ENV_FILE_PRD }}" > .env
           cat .env
       - run: npm run build
       - run: npm run test:e2e
