@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm install
-      - run: echo PORT ${{ PORT }}
+      - run: echo PORT ${{ secrets.DATABASE_PASS }}
       - name: 'Create env file'
         run: |
           echo APP_NAME= ${{ secrets.APP_NAME }} > .env
