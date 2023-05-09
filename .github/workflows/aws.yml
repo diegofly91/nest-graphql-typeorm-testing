@@ -20,17 +20,11 @@ jobs:
 
     steps:
       - uses: action/checkout@v2
-      - name: Use node js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: npm run install
-        run: npm install
-      - name: npm run test:e2e
-        run: npm run test:e2e
-      - name: npm run build
-        run: |
-          npm tun build
+
+      - run: npm install
+      - run: npm run test:e2e
+      - run: npm run build
+
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1.3
         with:
@@ -56,6 +50,7 @@ jobs:
            directory: dist
            file_name: .env
            fail_on_empty: false
+           
       - name: rsync deployments
         uses: burnett01/rsync-deployments@5.1
         with:
