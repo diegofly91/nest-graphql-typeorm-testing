@@ -40,16 +40,24 @@ jobs:
           echo GOOGLE_CLIENT_SECRET= ${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
           echo FACEBOOK_CLIENT_ID= ${{ vars.FACEBOOK_CLIENT_ID }} >> .env
           echo FACEBOOK_CLIENT_SECRET= ${{ secrets.FACEBOOK_CLIENT_SECRET }} >> .env
-      - run: npm run build
       - run: npm run test:e2e
+      - run: npm run build
 
-      - name: rsync deployments
-        uses: burnett01/rsync-deployments@5.1
-        with:
-          switches: -avzr --delete
-          path: ./*
-          remote_path: /var/www/my-app/
-          remote_host: 3.93.56.43
-          remote_user: ubuntu
-          remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
+      - uses: actions/checkout@v2 
+      - name: Deploy in EC2
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@3.93.56.43
+
+           cd /var/www/my-app/
+           nano index.html
+      # - name: rsync deployments
+      #   uses: burnett01/rsync-deployments@5.1
+      #   with:
+      #     switches: -avzr --delete
+      #     path: ./*
+      #     remote_path: /var/www/my-app/
+      #     remote_host: 3.93.56.43
+      #     remote_user: ubuntu
+      #     remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
 
