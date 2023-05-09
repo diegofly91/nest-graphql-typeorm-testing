@@ -21,7 +21,7 @@ jobs:
       - run: npm install
       - name: 'Create env file'
         run: |
-          echo "${{ API_ENV_PRD.ENV_FILE_PRD }}" > .env
+          echo "${{ secrets.ENV_FILE_PRD }}" > .env
           cat .env
       - run: npm run build
       - run: npm run test:e2e
@@ -35,5 +35,5 @@ jobs:
           remote_path: /var/www/my-app/
           remote_host: ec2-3-93-56-43.compute-1.amazonaws.com
           remote_user: ubuntu
-          remote_key: "${{ API_ENV_PRD.SSH_PRIVATE_KEY }}"
+          remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
 
