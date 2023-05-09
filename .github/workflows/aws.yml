@@ -1,0 +1,68 @@
+name: CDCI for AWS
+
+on:
+   push:
+     branches:
+       - main
+   pull_request:
+     branches:
+       - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/main'
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: action/checkout@v2
+      - name: Use node js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm run install
+        run: npm install
+      - name: npm run test:e2e
+        run: npm run test:e2e
+      - name: npm run build
+        run: |
+          npm tun build
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+           envkey_APP_NAME: ${{ secrets.APP_NAME }}
+           envkey_PORT: ${{ secrets.PORT }}
+           envkey_DB_TYPE: ${{ secrets.DB_TYPE }}
+           envkey_DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+           envkey_DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+           envkey_DATABASE_USER: ${{ secrets.DATABASE_USER }}
+           envkey_DATABASE_PASS: ${{ secrets.DATABASE_PASS }}
+           envkey_DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+           envkey_DATABASE_MIGRATIONS_DIR: ${{ secrets.DATABASE_MIGRATIONS_DIR }}
+           envkey_DATABASE_TIMEZONE: ${{ secrets.DATABASE_TIMEZONE }}
+           envkey_DATABASE_AUTOLOADENTITIES: ${{ secrets.DATABASE_AUTOLOADENTITIES }}
+           envkey_DATABASE_PGTZ: ${{ secrets.DATABASE_PGTZ }}
+           envkey_DB_TIMEOUT: ${{ secrets.DB_TIMEOUT }}
+           envkey_GRAPHQL_DEGUB: ${{ secrets.GRAPHQL_DEGUB }}
+           envkey_JWT_SECRET: ${{ secrets.JWT_SECRET }}
+           envkey_GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID }}
+           envkey_GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+           envkey_FACEBOOK_CLIENT_ID: ${{ secrets.FACEBOOK_CLIENT_ID }}
+           envkey_FACEBOOK_CLIENT_SECRET: ${{ secrets.FACEBOOK_CLIENT_SECRET }}
+           directory: dist
+           file_name: .env
+           fail_on_empty: false
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@5.1
+        with:
+          switches: -avzr --delete
+          path: ./*
+          remote_path: /var/www/my-app/
+          remote_host: ec2-3-93-56-43.compute-1.amazonaws.com
+          remote_user: ubuntu
+          remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
+
