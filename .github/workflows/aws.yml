@@ -53,8 +53,9 @@ jobs:
 
       #      cd /var/www/my-app/
       #      touch index.html
+      - run: ls -la
       - name: rsync deployments
-        uses: burnett01/rsync-deployments@5.1
+        uses: burnett01/rsync-deployments@5.2.1
         with:
           switches: -avzr --delete
           path: ./*
@@ -62,7 +63,6 @@ jobs:
           remote_host: 3.93.56.43
           remote_user: ubuntu
           remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
-          rsh: npm run deploy
            
 
 
