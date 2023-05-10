@@ -21,25 +21,25 @@ jobs:
       - run: npm install
       - name: 'Create env file'
         run: |
-          echo APP_NAME= ${{ vars.APP_NAME }} > .env
-          echo PORT= ${{ vars.PORT }} >> .env
-          echo DB_TYPE= ${{ vars.DB_TYPE }} >> .env
-          echo DATABASE_HOST= ${{ vars.DATABASE_HOST }} >> .env
-          echo DATABASE_PORT= ${{ vars.DATABASE_PORT }} >> .env
-          echo DATABASE_USER= ${{ vars.DATABASE_USER }} >> .env
-          echo DATABASE_PASS= ${{ secrets.DATABASE_PASS }} >> .env
-          echo DATABASE_NAME= ${{ vars.DATABASE_NAME }} >> .env
-          echo DATABASE_MIGRATIONS_DIR= ${{ vars.DATABASE_MIGRATIONS_DIR }} >> .env
-          echo DATABASE_TIMEZONE= ${{ vars.DATABASE_TIMEZONE }} >> .env
-          echo DATABASE_AUTOLOADENTITIES= ${{ vars.DATABASE_AUTOLOADENTITIES }} >> .env
-          echo DATABASE_PGTZ= ${{ vars.DATABASE_PGTZ }} >> .env
-          echo DB_TIMEOUT= ${{ vars.DB_TIMEOUT }} >> .env
-          echo GRAPHQL_DEGUB= ${{ vars.GRAPHQL_DEGUB }} >> .env
-          echo JWT_SECRET= ${{ secrets.JWT_SECRET }} >> .env
-          echo GOOGLE_CLIENT_ID= ${{ vars.GOOGLE_CLIENT_ID }} >> .env
-          echo GOOGLE_CLIENT_SECRET= ${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
-          echo FACEBOOK_CLIENT_ID= ${{ vars.FACEBOOK_CLIENT_ID }} >> .env
-          echo FACEBOOK_CLIENT_SECRET= ${{ secrets.FACEBOOK_CLIENT_SECRET }} >> .env
+          echo APP_NAME=${{ vars.APP_NAME }} > .env
+          echo PORT=${{ vars.PORT }} >> .env
+          echo DB_TYPE=${{ vars.DB_TYPE }} >> .env
+          echo DATABASE_HOST=${{ vars.DATABASE_HOST }} >> .env
+          echo DATABASE_PORT=${{ vars.DATABASE_PORT }} >> .env
+          echo DATABASE_USER=${{ vars.DATABASE_USER }} >> .env
+          echo DATABASE_PASS=${{ secrets.DATABASE_PASS }} >> .env
+          echo DATABASE_NAME=${{ vars.DATABASE_NAME }} >> .env
+          echo DATABASE_MIGRATIONS_DIR=${{ vars.DATABASE_MIGRATIONS_DIR }} >> .env
+          echo DATABASE_TIMEZONE=${{ vars.DATABASE_TIMEZONE }} >> .env
+          echo DATABASE_AUTOLOADENTITIES=${{ vars.DATABASE_AUTOLOADENTITIES }} >> .env
+          echo DATABASE_PGTZ=${{ vars.DATABASE_PGTZ }} >> .env
+          echo DB_TIMEOUT=${{ vars.DB_TIMEOUT }} >> .env
+          echo GRAPHQL_DEGUB=${{ vars.GRAPHQL_DEGUB }} >> .env
+          echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
+          echo GOOGLE_CLIENT_ID=${{ vars.GOOGLE_CLIENT_ID }} >> .env
+          echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
+          echo FACEBOOK_CLIENT_ID=${{ vars.FACEBOOK_CLIENT_ID }} >> .env
+          echo FACEBOOK_CLIENT_SECRET=${{ secrets.FACEBOOK_CLIENT_SECRET }} >> .env
       - run: npm run test:e2e
       - run: npm run build
       - run: |
