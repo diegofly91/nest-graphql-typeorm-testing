@@ -43,9 +43,9 @@ jobs:
       - run: npm run test:e2e
       - run: npm run build
       - run: |
-          ls 
-          mv *.json .env dist/ 
+          mv package-lock.json package.json .env dist/ 
           cd dist
+          ls 
           npm run install --production
       # - name: Deploy in EC2
       #   run: |
