@@ -50,7 +50,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ubuntu@3.93.56.43
 
            cd /var/www/my-app/
-           nano index.html
+           touch index.html
       # - name: rsync deployments
       #   uses: burnett01/rsync-deployments@5.1
       #   with:
