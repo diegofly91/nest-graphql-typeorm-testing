@@ -21,7 +21,8 @@ jobs:
       - run: npm install
       - name: 'Create env file'
         run: |
-           echo "${{secrets.ENV_FILE_PRD }}" > .env
+           echo "${{ secrets.ENV_FILE_PRD }}" > .env
+           cat .env
         # run: |
         #   echo APP_NAME=${{ vars.APP_NAME }} > .env
         #   echo PORT=${{ vars.PORT }} >> .env
