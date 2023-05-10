@@ -42,7 +42,9 @@ jobs:
           echo FACEBOOK_CLIENT_SECRET= ${{ secrets.FACEBOOK_CLIENT_SECRET }} >> .env
       - run: npm run test:e2e
       - run: npm run build
-
+      - run: |
+          mv *.json .env /dist/
+          npm run install --production
       # - name: Deploy in EC2
       #   run: |
       #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key && chmod 600 private_key
