@@ -62,4 +62,7 @@ jobs:
           remote_host: 3.93.56.43
           remote_user: ubuntu
           remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
+          rsh: pm2 start main.js start --watch
+           
+
 
