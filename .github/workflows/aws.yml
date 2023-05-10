@@ -42,10 +42,10 @@ jobs:
           echo FACEBOOK_CLIENT_SECRET= ${{ secrets.FACEBOOK_CLIENT_SECRET }} >> .env
       - run: npm run test:e2e
       - run: npm run build
-      - run: |
-          mv package-lock.json package.json .env dist/ 
-          cd dist
-          npm install --production
+      # - run: |
+      #     mv package-lock.json package.json .env dist/ 
+      #     cd dist
+      #     npm install --production
       # - name: Deploy in EC2
       #   run: |
       #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key && chmod 600 private_key
@@ -57,12 +57,12 @@ jobs:
         uses: burnett01/rsync-deployments@5.1
         with:
           switches: -avzr --delete
-          path: ./dist/*
+          path: ./*
           remote_path: /var/www/my-app/
           remote_host: 3.93.56.43
           remote_user: ubuntu
           remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
-          rsh: pm2 start main.js start --watch
+          rsh: npm run deploy
            
 
 
