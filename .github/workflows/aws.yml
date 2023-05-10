@@ -45,8 +45,7 @@ jobs:
       - run: |
           mv package-lock.json package.json .env dist/ 
           cd dist
-          ls 
-          npm run install --production
+          npm install --production
       # - name: Deploy in EC2
       #   run: |
       #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key && chmod 600 private_key
@@ -58,7 +57,7 @@ jobs:
         uses: burnett01/rsync-deployments@5.1
         with:
           switches: -avzr --delete
-          path: ./*
+          path: ./dist/*
           remote_path: /var/www/my-app/
           remote_host: 3.93.56.43
           remote_user: ubuntu
