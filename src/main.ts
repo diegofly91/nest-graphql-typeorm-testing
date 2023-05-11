@@ -2,7 +2,7 @@ import { BadRequestException, Logger, ValidationError, ValidationPipe } from '@n
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import * as fs from 'fs-extra';
+import * as fs from 'node:fs';
 //import { graphqlUploadExpress } from 'graphql-upload-ts';
 
 const configService = new ConfigService();
